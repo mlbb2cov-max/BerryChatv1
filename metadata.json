@@ -1,0 +1,6 @@
+{
+  "name": "Berrychat",
+  "description": "Berrychat - Dual-mode AI character companion with intimate chat and cinematic story encounters.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

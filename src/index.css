@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #1a1218;
+    --surface: #241b22;
+    --surface-light: #2e222c;
+    --surface-translucent: rgba(36, 27, 34, 0.92);
+    --border: #3d2b38;
+    --text: #ffffff;
+    --text-secondary: #a0909c;
+    --pink: #ff85a2;
+    --pink-dark: #ff5a8a;
+    --green: #8bc34a;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Noto Sans Myanmar', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #3d2b38;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff85a2;
+}
+
+@keyframes pulseAvatar {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 133, 162, 0.45);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 133, 162, 0);
+    transform: scale(1.05);
+  }
+}
+
+.pulse-avatar {
+  animation: pulseAvatar 2s infinite ease-in-out;
+}
+
+@keyframes msgIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.msg-animate {
+  animation: msgIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pink-gradient {
+  background: linear-gradient(135deg, #ff85a2 0%, #ff5a8a 100%);
+}
+
+.pink-gradient-hover:hover {
+  background: linear-gradient(135deg, #ff9bb3 0%, #ff6e98 100%);
+}
+
+/* Safe area padding for iOS home indicator & gesture nav */
+@layer utilities {
+  .pb-safe {
+    padding-bottom: max(
+      0.5rem,
+      calc(0.5rem + env(safe-area-inset-bottom, 0px))
+    );
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
