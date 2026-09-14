@@ -36,7 +36,7 @@ import { SettingsModal } from './components/SettingsModal';
 import { DonateModal } from './components/DonateModal';
 import { EncounterDetailModal } from './components/EncounterDetailModal';
 import { OfflineIndicator } from './components/OfflineIndicator';
-import { sendChatRequest } from './utils/geminiChatService';
+import { sendChatRequest, generateConversationSummary } from './utils/geminiChatService';
 import { splitIntoBubbles, bubbleDelayMs } from './utils/chatBubbles';
 import { AlertCircle, X } from 'lucide-react';
 import { getTranslation, localizeCharacter } from './utils/i18n';
@@ -209,6 +209,7 @@ export default function App() {
         character: char,
         userName: userProfile.name,
         userBio: userProfile.bio,
+        userGender: userProfile.gender,
         mode: 'real',
         language,
         messages: [],
@@ -353,6 +354,7 @@ ${endedEncounter.summary ? `Summary: ${endedEncounter.summary}` : ''}`;
         character: char,
         userName: userProfile.name,
         userBio: userProfile.bio,
+        userGender: userProfile.gender,
         mode: 'chat',
         language,
         messages: [],
@@ -534,6 +536,16 @@ ${endedEncounter.summary ? `Summary: ${endedEncounter.summary}` : ''}`;
     });
   };
 
+  // Delete a saved adventure (from the "Continue Story" list)
+  const handleDeleteStory = (storyId: string) => {
+    setStories((prev) => {
+      const next = prev.filter((s) => s.id !== storyId);
+      saveStoredStories(next);
+      return next;
+    });
+    if (activeStoryId === storyId) setActiveStoryId(null);
+  };
+
   // Generate the opening scene for a brand-new adventure
   const triggerStoryOpening = async (story: StorySession) => {
     setIsLoading(true);
@@ -651,6 +663,7 @@ ${endedEncounter.summary ? `Summary: ${endedEncounter.summary}` : ''}`;
         character: char,
         userName: userProfile.name,
         userBio: userProfile.bio,
+        userGender: userProfile.gender,
         mode,
         language,
         messages: [],
@@ -767,11 +780,12 @@ ${endedEncounter.summary ? `Summary: ${endedEncounter.summary}` : ''}`;
           character: activeCharacter,
           userName: userProfile.name,
           userBio: userProfile.bio,
+        userGender: userProfile.gender,
           mode: 'real',
           language,
           messages: updatedEncounterMessages
             .filter((m) => m.role === 'user' || m.role === 'model')
-            .slice(-20)
+            .slice(-40)
             .map((m) => ({
               id: m.id,
               role: m.role as 'user' | 'model',
@@ -840,7 +854,7 @@ ${endedEncounter.summary ? `Summary: ${endedEncounter.summary}` : ''}`;
           language,
           messages: updatedStoryMessages
             .filter((m) => m.role === 'user' || m.role === 'model')
-            .slice(-20)
+            .slice(-40)
             .map((m) => ({
               id: m.id,
               role: m.role as 'user' | 'model',
@@ -917,11 +931,13 @@ ${lastMeet.summary ? `Summary: ${lastMeet.summary}` : ''}`;
           character: activeCharacter,
           userName: userProfile.name,
           userBio: userProfile.bio,
-          mode: 'chat',
-          language,
-          messages: updatedMessages
+        userGender: userProfile.gender,
+        mode: 'chat',
+        language,
+        conversationSummary: activeSession.summary,
+        messages: updatedMessages
             .filter((m) => m.role === 'user' || m.role === 'model')
-            .slice(-20)
+            .slice(-80)
             .map((m) => ({
               id: m.id,
               role: m.role as 'user' | 'model',
@@ -969,6 +985,31 @@ ${lastMeet.summary ? `Summary: ${lastMeet.summary}` : ''}`;
               lastActivityTimestamp: Date.now(),
               sessions: updatedSessions,
             };
+          });
+        }
+
+        // Rolling memory: periodically condense the conversation so early
+        // context survives long chats (once every 25 chat messages past 40).
+        const chatMsgsForSummary = [...(activeSession.messages || [])].filter(
+          (m) => m.mode === 'chat' && !m.isEncounterCard && m.role !== 'system'
+        );
+        const fullCount = chatMsgsForSummary.length;
+        if (fullCount >= 40 && fullCount % 25 === 0) {
+          generateConversationSummary({
+            messages: chatMsgsForSummary.map((m) => ({
+              role: (m.role === 'user' ? 'user' : 'model') as 'user' | 'model',
+              content: m.content || '',
+            })),
+            model: selectedModel || activeCharacter.model,
+            language,
+          }).then((summary) => {
+            if (!summary) return;
+            updateCharacter((c) => ({
+              ...c,
+              sessions: c.sessions.map((s) =>
+                s.id === c.activeSessionId ? { ...s, summary } : s
+              ),
+            }));
           });
         }
 
@@ -1289,6 +1330,7 @@ ${lastMeet.summary ? `Summary: ${lastMeet.summary}` : ''}`;
                 onStartStory={handleStartStory}
                 stories={stories}
                 onOpenStory={handleOpenStory}
+                onDeleteStory={handleDeleteStory}
                 onStartStoryCustom={handleStartStoryCustom}
               />
             )}

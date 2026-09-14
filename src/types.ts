@@ -1,5 +1,7 @@
 export type AppMode = 'chat' | 'real' | 'story';
 export type AppLanguage = 'en' | 'my';
+/** Identity gender used for Burmese pronouns and how companions address the user. */
+export type Gender = 'male' | 'female' | 'other';
 
 /** Genre of an interactive Story Mode adventure (Endless Adventure / CYOA). */
 export type StoryGenre = 'scifi' | 'fantasy' | 'slice' | 'horror' | 'random';
@@ -73,6 +75,8 @@ export interface Session {
   name: string;
   createdAt: number;
   messages: ChatMessage[];
+  /** Rolling summary of earlier turns, kept so long chats don't lose context. */
+  summary?: string;
 }
 
 export interface MeetEncounter {
@@ -91,6 +95,7 @@ export interface Character {
   id: string;
   name: string;
   avatar: string;
+  gender?: Gender;
   wallpaper?: string;
   personality: string;
   backstory: string;
@@ -136,6 +141,7 @@ export interface UserProfile {
   name: string;
   avatar: string;
   bio: string;
+  gender: Gender;
 }
 
 export interface RealModeEncounter {

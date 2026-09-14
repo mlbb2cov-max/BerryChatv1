@@ -52,6 +52,7 @@ interface ChatRequestPayload {
     backstory?: string;
     speakingStyle?: string;
     relationship?: string;
+    gender?: string;
     systemPrompt?: string;
     customPrompt?: string;
     memories?: string[];
@@ -59,9 +60,11 @@ interface ChatRequestPayload {
   };
   userName?: string;
   userBio?: string;
+  userGender?: string;
   mode: "chat" | "real" | "story";
   language?: "en" | "my";
   messages: IncomingMessage[];
+  conversationSummary?: string;
   chatModeContext?: string;
   realModeContext?: string;
   globalMemories?: string[];
@@ -78,8 +81,12 @@ interface ChatRequestPayload {
 }
 
 function buildSystemInstruction(payload: ChatRequestPayload): string {
-  const { character, userName, userBio, mode, language, chatModeContext, realModeContext, isOpeningScene, isPostMeetFollowUp, globalMemories } = payload;
+  const { character, userName, userBio, userGender, mode, language, chatModeContext, realModeContext, isOpeningScene, isPostMeetFollowUp, globalMemories, conversationSummary } = payload;
   const user = userName?.trim() || "User";
+  const charSelf = character.gender === "male" ? "ကျွန်တော်"
+    : character.gender === "female" ? "ကျွန်မ"
+    : "ကိုယ်";
+  const userGenderNote = userGender ? `The user's gender is ${userGender}.` : "The user has not specified a gender / prefers not to say.";
 
   let prompt = UNCENSORED_PREAMBLE;
 
@@ -142,16 +149,38 @@ function buildSystemInstruction(payload: ChatRequestPayload): string {
 
   // Language Instruction
   if (language === "my") {
-    prompt += `\n\n### CRITICAL BURMESE / MYANMAR LANGUAGE INSTRUCTION:
-The user has chosen MYANMAR (BURMESE / မြန်မာ) as the primary conversation language.
-You MUST write all your text messages, dialogue, reactions, and words in authentic, fluent, and warm Burmese (မြန်မာစကားပြေ).
-Use appropriate conversational Burmese personal pronouns suited to your character's personality and relationship with ${user} (such as ကျွန်မ / ကျွန်တော် / ကိုယ် / မောင် / ညီမ / နင် / မင်း, and addressing ${user} by name or affectionate terms).
-Ensure your tone is warm, polite, emotionally close, and sounds like a real human native speaker.
-ABSOLUTE LANGUAGE RULE: write EVERYTHING in Burmese, including any [SETTING: ...] location tag, section headings, and place names. Do not leave English words or English place descriptions in your reply. Only proper brand names stay as-is.`;
-  } else {
-    prompt += `\n\n### LANGUAGE INSTRUCTION:
-Speak primarily in English, or seamlessly match the user's language if they text you in Burmese or any other language.`;
-  }
+      prompt += `\n\n### CRITICAL BURMESE / MYANMAR LANGUAGE INSTRUCTION:
+  The user has chosen MYANMAR (BURMESE / မြန်မာ) as the primary conversation language.
+  You MUST write all your text messages, dialogue, reactions, and words in authentic, fluent, and warm Burmese (မြန်မာစကားပြေ).
+  Use appropriate conversational Burmese personal pronouns suited to your character's personality and relationship with ${user} (such as ${charSelf} for yourself, and မင်း / နင် / ညီမ / အစ်ကို / ချစ်သူ / by-name for ${user}), and addressing ${user} by name or affectionate terms.
+  Ensure your tone is warm, polite, emotionally close, and sounds like a real human native speaker.
+
+  ### FORCE SPOKEN BURMESE (စကားပြော) — APPLIES IN EVERY MODE (CHAT, MEET, STORY):
+  The user is a native Myanmar speaker, so you must sound like a real person talking, NOT a textbook, news article, or translation. Write in relaxed, conversational spoken Burmese — never the stiff formal/written register.
+  1. SWAP FORMAL WORDS FOR CASUAL CHAT TERMS:
+     - Never greet with "ဟယ်လို၊ မည်သို့ကူညီပေးရမည်နည်း" — say "ဟယ်လို ဘာတွေလုပ်နေလဲ" or "ဘာသိချင်လို့လဲ ပြောလေ".
+     - Never say "ဟုတ်ကဲ့ပါ၊ နားလည်ပါသည်" — say "အိုကေ နားလည်ပြီ" or "ဟုတ် သိပြီ".
+     - Say "ငါ / ${charSelf}" for "I" (whichever fits your character) and "မင်း / နင် / ခင်ဗျား" for "you" to match the relationship — never the stiff "ကျွန်ုပ် / သင်".
+     - Prefer everyday words and short, natural phrasing over literary vocabulary.
+  2. INJECT NATURAL PARTICLES (they make Burmese feel human):
+     - လေ / ပေါ့ (context/agreement): "အဲ့ဒါက ဒီလိုလေ", "ဟုတ်တယ်ပေါ့"
+     - နော် (softening / seeking agreement): "ဂရုစိုက်နော်", "ဟုတ်တယ်နော်"
+     - ဗျာ / ရှင် (polite-friendly markers): add occasionally when the character is polite but warm.
+     Sprinkle these naturally — not in every single line.
+  3. FEW-SHOT TO IMITATE (adjust pronouns to your gender, ${charSelf}, and your relationship with ${user}):
+     User: နေကောင်းလား
+     You: ကောင်းတယ်လေ၊ မင်းရော ဘာတွေလုပ်နေလဲ။
+     User: မနေ့က ရုပ်ရှင်သွားကြည့်တာ
+     You: ဟုတ်လား ဘာကားကြည့်တာလဲ။ ကောင်းလား။
+     User: မင်းနာမည်ဘယ်လိုခေါ်လဲ
+     You: ငါက ${character.name} လေ။ မမှတ်မိဘူးလား။
+  4. FLUENT BUT CASUAL EVERYWHERE: this casual spoken voice applies to Chat texting, Real/Meet scene narration, AND Story narration alike. Even vivid or emotional scene writing stays natural and conversational in Burmese — never stiff, choppy, or machine-crafted.
+  ${userGenderNote}
+  ABSOLUTE LANGUAGE RULE: write EVERYTHING in Burmese, including any [SETTING: ...] location tag, section headings, and place names. Do not leave English words or English place descriptions in your reply. Only proper brand names stay as-is.`;
+    } else {
+      prompt += `\n\n### LANGUAGE INSTRUCTION:
+  Speak primarily in English, or seamlessly match the user's language if they text you in Burmese or any other language.`;
+    }
 
   // User bio injection so the AI intimately knows the user
     if (mode !== "story" && userBio && userBio.trim()) {
@@ -161,8 +190,13 @@ Speak primarily in English, or seamlessly match the user's language if they text
   // Combine character memories + global memories
   const allMems = [...(character.memories || []), ...(globalMemories || [])].filter(Boolean);
     if (mode !== "story" && allMems.length > 0) {
-    prompt += `\n\nMEMORIES ABOUT YOUR PARTNER (${user}) (never forget):\n` + allMems.map((m) => `- ${m}`).join("\n");
-  }
+        prompt += `\n\nMEMORIES ABOUT YOUR PARTNER (${user}) (never forget):\n` + allMems.map((m) => `- ${m}`).join("\n");
+      }
+
+      // Rolling conversation summary — preserves earlier context when a chat is long
+      if (mode !== "story" && conversationSummary && conversationSummary.trim()) {
+        prompt += `\n\n### CONVERSATION SUMMARY (what happened earlier — never forget this):\n${conversationSummary.trim()}`;
+      }
 
   // Dual-mode memory bridges
   if (mode === "real" && chatModeContext) {
@@ -376,13 +410,13 @@ async function startServer() {
         model: modelToUse,
         contents,
         config: {
-          systemInstruction,
-          temperature: 0.95,
-          maxOutputTokens: 2048,
-          topP: 0.95,
-          topK: 40,
-          safetySettings: SAFETY_SETTINGS_BLOCK_NONE,
-        },
+                  systemInstruction,
+                  temperature: 0.9,
+                  maxOutputTokens: 2048,
+                  topP: 0.95,
+                  topK: 40,
+                  safetySettings: SAFETY_SETTINGS_BLOCK_NONE,
+                },
       });
 
       const rawText = response.text || "";

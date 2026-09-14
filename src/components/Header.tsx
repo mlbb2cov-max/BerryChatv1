@@ -10,7 +10,6 @@ import {
   User,
   Award,
   BookOpen,
-  HeartHandshake,
   LogOut,
   Globe,
 } from 'lucide-react';
@@ -119,19 +118,6 @@ export const Header: React.FC<HeaderProps> = ({
             </>
           ) : (
             <>
-          {/* Donate / KBZPay Button */}
-          {onOpenDonate && (
-            <button
-              id="btn-header-donate"
-              onClick={onOpenDonate}
-              className="hidden md:flex px-2.5 py-1 rounded-full bg-[#005baa]/20 border border-[#005baa]/60 hover:bg-[#005baa] text-[#80c8ff] hover:text-white text-xs font-bold transition-all items-center gap-1.5 shadow-sm active:scale-95"
-              title={t.donateWithKbzpay}
-              aria-label={t.donate}
-            >
-              <HeartHandshake className="w-3.5 h-3.5 text-[#ff85a2]" />
-              <span className="hidden sm:inline">{language === 'my' ? 'လှူဒါန်းရန်' : 'Donate'}</span>
-            </button>
-          )}
 
           {/* PWA Install Button if installable */}
           <div className="hidden md:block">

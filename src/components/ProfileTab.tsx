@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { UserProfile, Character, AppLanguage } from '../types';
+import { UserProfile, Character, AppLanguage, Gender } from '../types';
 import {
   Camera,
   Settings,
@@ -9,6 +9,9 @@ import {
   Sliders,
   Globe,
   HeartHandshake,
+  Mars,
+  Venus,
+  Circle,
 } from 'lucide-react';
 import { getTranslation } from '../utils/i18n';
 import { PWAInstallButton } from './PWAInstallButton';
@@ -37,6 +40,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
   const [name, setName] = useState(userProfile.name || '');
     const [avatar, setAvatar] = useState(userProfile.avatar || DEFAULT_AVATAR);
     const [bio, setBio] = useState(userProfile.bio || '');
+    const [gender, setGender] = useState<Gender>(userProfile.gender || 'other');
   const [isSaved, setIsSaved] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +70,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
       name: name.trim(),
       avatar,
       bio: bio.trim(),
+      gender,
     };
     onSaveProfile(updated);
     setIsSaved(true);
@@ -219,6 +224,37 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
               placeholder={t.aboutYouPlaceholder}
               className="w-full px-4 py-3 rounded-2xl bg-[#2e222c] border border-[#3d2b38] text-white text-xs sm:text-sm focus:outline-none focus:border-[#ff85a2] transition-colors resize-none leading-relaxed"
             />
+          </div>
+
+          {/* Gender Selection */}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-bold text-white">
+              {t.gender}
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {([
+                { value: 'male' as Gender, icon: Mars, label: t.genderMale },
+                { value: 'female' as Gender, icon: Venus, label: t.genderFemale },
+                { value: 'other' as Gender, icon: Circle, label: t.genderOther },
+              ]).map((opt) => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => {
+                    setGender(opt.value);
+                    setIsSaved(false);
+                  }}
+                  className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl border text-xs font-bold transition-colors ${
+                    gender === opt.value
+                      ? 'bg-[#ff85a2]/20 border-[#ff85a2]/60 text-[#ff85a2]'
+                      : 'bg-[#2e222c] border-[#3d2b38] text-[#a0909c] hover:border-[#ff85a2]/50'
+                  }`}
+                >
+                  <opt.icon className="w-4 h-4" />
+                  <span>{opt.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Save Button */}

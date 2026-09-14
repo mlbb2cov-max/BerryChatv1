@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Character, AppLanguage } from '../types';
 import { getTranslation, localizeCharacter } from '../utils/i18n';
-import { X, Plus, Trash2, Edit2, Check, User, Users, Heart, Sparkles, AlertTriangle } from 'lucide-react';
+import { X, Plus, Trash2, Edit2, Check, User, Users, Heart, Sparkles, AlertTriangle, Mars, Venus, Circle } from 'lucide-react';
 
 interface CharacterSidebarProps {
   isOpen: boolean;
@@ -90,6 +90,13 @@ export const CharacterSidebar: React.FC<CharacterSidebarProps> = ({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
                       <h3 className="font-bold text-sm text-stone-900 dark:text-stone-100 truncate">
+                        {char.gender === 'female' ? (
+                          <Venus className="w-3.5 h-3.5 text-rose-500/80 inline-block mr-1 -mt-0.5" />
+                        ) : char.gender === 'male' ? (
+                          <Mars className="w-3.5 h-3.5 text-sky-500/80 inline-block mr-1 -mt-0.5" />
+                        ) : char.gender ? (
+                          <Circle className="w-3.5 h-3.5 text-violet-500/80 inline-block mr-1 -mt-0.5" />
+                        ) : null}
                         {localizeCharacter(char, lang).name}
                       </h3>
                       {isActive && (

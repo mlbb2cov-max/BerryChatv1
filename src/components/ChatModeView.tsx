@@ -13,7 +13,6 @@ import {
   Heart,
   Loader2,
   Check,
-  QrCode,
   Sparkles,
   MapPin,
   Clock,
@@ -333,24 +332,6 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                       ) : (
                         <div className="whitespace-pre-wrap select-text">
                           {msg.content}
-                          {msg.role === 'model' &&
-                            onOpenDonate &&
-                            (msg.content.toLowerCase().includes('kbzpay') ||
-                              msg.content.toLowerCase().includes('donate') ||
-                              msg.content.includes('8676') ||
-                              msg.content.includes('လှူဒါန်း') ||
-                              msg.content.includes('ထောက်ပံ့')) && (
-                              <div className="mt-2.5 pt-2 border-t border-[#3d2b38]/60 flex items-center gap-2">
-                                <button
-                                  type="button"
-                                  onClick={onOpenDonate}
-                                  className="px-3 py-1.5 rounded-xl bg-[#005baa] hover:bg-[#004f94] text-white text-xs font-bold shadow-md flex items-center gap-1.5 transition-all active:scale-95"
-                                >
-                                  <QrCode className="w-3.5 h-3.5" />
-                                  <span>KBZPay QR ကြည့်ရန်</span>
-                                </button>
-                              </div>
-                            )}
                         </div>
                       )}
 

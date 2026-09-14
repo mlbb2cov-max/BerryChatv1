@@ -20,6 +20,7 @@ const DEFAULT_USER_PROFILE: UserProfile = {
   name: '',
   avatar: '',
   bio: '',
+  gender: 'other',
 };
 
 export function normalizeCharacter(c: any): Character {
@@ -37,6 +38,7 @@ export function normalizeCharacter(c: any): Character {
     id: c.id || `char-${Date.now()}`,
     name: c.name || 'Partner',
     avatar: c.avatar || '',
+    gender: c.gender || undefined,
     wallpaper: c.wallpaper || '',
     personality: c.personality || 'Sweet, thoughtful, and attentive.',
     backstory: c.backstory || 'A close companion who loves deep conversations.',
@@ -105,6 +107,8 @@ export function getStoredCharacters(): Character[] {
       } else {
         // Ensure default properties like isDefault and traits are kept up-to-date
         existing.isDefault = true;
+        // Gender is a shipping decision for default companions — always take it
+        existing.gender = defChar.gender;
         if (!existing.traits || existing.traits.length === 0) {
           existing.traits = defChar.traits;
         }
@@ -178,6 +182,9 @@ export function getStoredUserProfile(): UserProfile {
         name: parsed.name || DEFAULT_USER_PROFILE.name,
         avatar: parsed.avatar ?? DEFAULT_USER_PROFILE.avatar,
         bio: parsed.bio || DEFAULT_USER_PROFILE.bio,
+        gender: (parsed.gender === 'male' || parsed.gender === 'female' || parsed.gender === 'other')
+          ? parsed.gender
+          : DEFAULT_USER_PROFILE.gender,
       };
     }
     // Check legacy username
