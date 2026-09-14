@@ -26,20 +26,30 @@ import { ChatTab } from './components/ChatTab';
 import { ProfileTab } from './components/ProfileTab';
 import { BottomNav, MainTab } from './components/BottomNav';
 import { ChatModeView } from './components/ChatModeView';
-import { RealModeView } from './components/RealModeView';
-import { StoryModeView } from './components/StoryModeView';
-import { CharacterModal } from './components/CharacterModal';
-import { ProfileModal } from './components/ProfileModal';
-import { ChapterSheet } from './components/ChapterSheet';
-import { BookmarksDrawer } from './components/BookmarksDrawer';
-import { SettingsModal } from './components/SettingsModal';
-import { DonateModal } from './components/DonateModal';
-import { EncounterDetailModal } from './components/EncounterDetailModal';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { sendChatRequest, generateConversationSummary } from './utils/geminiChatService';
 import { splitIntoBubbles, bubbleDelayMs } from './utils/chatBubbles';
 import { AlertCircle, X } from 'lucide-react';
 import { getTranslation, localizeCharacter } from './utils/i18n';
+
+// Code-split the heavy / rarely-opened screens & modals so the browser only
+// downloads them when actually used (improves initial load & INP). Pure
+// performance change — no behaviour difference, just a brief spinner on first open.
+const RealModeView = React.lazy(() => import('./components/RealModeView').then((m) => ({ default: m.RealModeView })));
+const StoryModeView = React.lazy(() => import('./components/StoryModeView').then((m) => ({ default: m.StoryModeView })));
+const CharacterModal = React.lazy(() => import('./components/CharacterModal').then((m) => ({ default: m.CharacterModal })));
+const ProfileModal = React.lazy(() => import('./components/ProfileModal').then((m) => ({ default: m.ProfileModal })));
+const ChapterSheet = React.lazy(() => import('./components/ChapterSheet').then((m) => ({ default: m.ChapterSheet })));
+const BookmarksDrawer = React.lazy(() => import('./components/BookmarksDrawer').then((m) => ({ default: m.BookmarksDrawer })));
+const SettingsModal = React.lazy(() => import('./components/SettingsModal').then((m) => ({ default: m.SettingsModal })));
+const DonateModal = React.lazy(() => import('./components/DonateModal').then((m) => ({ default: m.DonateModal })));
+const EncounterDetailModal = React.lazy(() => import('./components/EncounterDetailModal').then((m) => ({ default: m.EncounterDetailModal })));
+
+const FullScreenLoader = () => (
+  <div className="flex flex-1 items-center justify-center bg-[#1a1218] min-h-screen">
+    <div className="w-8 h-8 border-2 border-[#ff85a2] border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 export default function App() {
   const [characters, setCharacters] = useState<Character[]>(() => getStoredCharacters());
@@ -1218,6 +1228,7 @@ ${lastMeet.summary ? `Summary: ${lastMeet.summary}` : ''}`;
   ).length;
 
   return (
+    <React.Suspense fallback={<FullScreenLoader />}>
     <div className="h-full w-full flex flex-col bg-[#1a1218] text-white font-sans overflow-hidden">
       {/* Top Header when inside an active conversation (Chat or Meet Mode) */}
       {isConversationOpen && activeMode !== 'story' && (
@@ -1478,5 +1489,6 @@ ${lastMeet.summary ? `Summary: ${lastMeet.summary}` : ''}`;
       {/* Offline Status Connectivity Banner */}
       <OfflineIndicator language={language} />
     </div>
+    </React.Suspense>
   );
 }
