@@ -62,7 +62,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#a0909c] hover:text-white hover:bg-[#3d2b38] transition-colors"
+            className="p-1.5 rounded-full text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38] transition-colors"
             aria-label={t.closeProfile}
           >
             <X className="w-5 h-5" />
@@ -90,7 +90,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   <span>{t.levelLabel} {character.level || 1}</span>
                 </span>
                 {character.isDefault && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1a1218] text-[#a0909c] border border-[#3d2b38] flex items-center gap-1">
+                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#1a1218] text-[#c4b5c0] border border-[#3d2b38] flex items-center gap-1">
                     <ShieldCheck className="w-3 h-3 text-[#ff85a2]" />
                     <span>{t.officialCompanion}</span>
                   </span>
@@ -103,7 +103,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               </div>
 
               {/* Personality Summary */}
-              <p className="text-xs text-[#a0909c] leading-relaxed">
+              <p className="text-xs text-[#c4b5c0] leading-relaxed">
                 {lc.personality}
               </p>
             </div>
@@ -151,7 +151,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                   style={{ width: `${Math.min(100, character.affection || 0)}%` }}
                 />
               </div>
-              <p className="text-[10px] text-[#a0909c]">
+              <p className="text-[11px] text-[#c4b5c0]">
                 {t.affectionDesc}
               </p>
             </div>
@@ -164,7 +164,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               <div className="text-lg font-black text-white">
                 {character.streak || 1} {t.days}
               </div>
-              <div className="text-[10px] uppercase tracking-wider font-bold text-[#a0909c]">
+              <div className="text-[11px] uppercase tracking-wider font-bold text-[#c4b5c0]">
                 {t.chatStreak}
               </div>
             </div>
@@ -176,7 +176,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               <span className="font-bold text-white block mb-1">
                 {t.backstorySection}
               </span>
-              <p className="text-[#a0909c] leading-relaxed">
+              <p className="text-[#c4b5c0] leading-relaxed">
                 {lc.backstory || t.backstoryFallback}
               </p>
             </div>
@@ -186,7 +186,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                 <span className="font-bold text-white block mb-1">
                   {t.speakingStyleSection}
                 </span>
-                <p className="text-[#a0909c] leading-relaxed">
+                <p className="text-[#c4b5c0] leading-relaxed">
                   {lc.speakingStyle}
                 </p>
               </div>
@@ -211,7 +211,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-[#a0909c]">
+              <p className="text-xs text-[#c4b5c0]">
                 {t.noMemoriesLogged}
               </p>
             )}
@@ -232,7 +232,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               <span>{t.edit}</span>
             </button>
           ) : (
-            <div className="text-[11px] text-[#a0909c] flex items-center gap-1 font-medium">
+            <div className="text-[11px] text-[#c4b5c0] flex items-center gap-1 font-medium">
               <ShieldCheck className="w-3.5 h-3.5 text-[#ff85a2]" />
               <span>{t.officialCompanion}</span>
             </div>

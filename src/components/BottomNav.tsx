@@ -21,15 +21,15 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   const t = getTranslation(language);
 
   return (
-    <nav className="bg-[#241b22]/95 backdrop-blur-lg border-t border-[#3d2b38] px-4 py-2 shrink-0 z-40 sticky bottom-0">
+    <nav className="bg-[#241b22]/95 backdrop-blur-lg border-t border-[#3d2b38]/70 px-2 py-1.5 shrink-0 z-40 sticky bottom-0 pb-safe">
       <div className="max-w-md mx-auto flex items-center justify-around">
         {/* Home Tab */}
         <button
           onClick={() => onTabChange('home')}
-          className={`flex flex-col items-center gap-1 py-1 px-4 rounded-2xl transition-all ${
+          className={`flex flex-col items-center gap-1 py-1.5 px-3 min-w-[64px] rounded-2xl transition-all active:scale-95 ${
             activeTab === 'home'
               ? 'text-[#ff85a2]'
-              : 'text-[#a0909c] hover:text-white'
+              : 'text-[#c4b5c0] hover:text-white'
           }`}
           aria-label={t.navHome}
         >
@@ -40,16 +40,16 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           >
             <Home className="w-5 h-5" />
           </div>
-          <span className="text-[11px] font-semibold tracking-wide">{t.navHome}</span>
+          <span className="text-xs font-semibold tracking-wide">{t.navHome}</span>
         </button>
 
         {/* Chat Tab */}
         <button
           onClick={() => onTabChange('chat')}
-          className={`relative flex flex-col items-center gap-1 py-1 px-4 rounded-2xl transition-all ${
+          className={`relative flex flex-col items-center gap-1 py-1.5 px-3 min-w-[64px] rounded-2xl transition-all active:scale-95 ${
             activeTab === 'chat'
               ? 'text-[#ff85a2]'
-              : 'text-[#a0909c] hover:text-white'
+              : 'text-[#c4b5c0] hover:text-white'
           }`}
           aria-label={t.navChat}
         >
@@ -63,16 +63,16 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#ff85a2] ring-2 ring-[#241b22]" />
             )}
           </div>
-          <span className="text-[11px] font-semibold tracking-wide">{t.navChat}</span>
+          <span className="text-xs font-semibold tracking-wide">{t.navChat}</span>
         </button>
 
         {/* Profile Tab */}
         <button
           onClick={() => onTabChange('profile')}
-          className={`flex flex-col items-center gap-1 py-1 px-4 rounded-2xl transition-all ${
+          className={`flex flex-col items-center gap-1 py-1.5 px-3 min-w-[64px] rounded-2xl transition-all active:scale-95 ${
             activeTab === 'profile'
               ? 'text-[#ff85a2]'
-              : 'text-[#a0909c] hover:text-white'
+              : 'text-[#c4b5c0] hover:text-white'
           }`}
           aria-label={t.navProfile}
         >
@@ -83,7 +83,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
           >
             <User className="w-5 h-5" />
           </div>
-          <span className="text-[11px] font-semibold tracking-wide">{t.navProfile}</span>
+          <span className="text-xs font-semibold tracking-wide">{t.navProfile}</span>
         </button>
       </div>
     </nav>

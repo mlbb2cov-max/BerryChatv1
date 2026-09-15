@@ -39,7 +39,7 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#a0909c] hover:text-white hover:bg-[#3d2b38] transition-colors"
+            className="tap-target p-2.5 rounded-full text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38] transition-colors"
             aria-label={t.closeBookmarks}
           >
             <X className="w-5 h-5" />
@@ -54,7 +54,7 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
                 <BookmarkIcon className="w-6 h-6" />
               </div>
               <h4 className="text-sm font-bold text-white">{t.noBookmarksSaved}</h4>
-              <p className="text-xs text-[#a0909c] max-w-xs leading-relaxed">
+              <p className="text-xs text-[#c4b5c0] max-w-xs leading-relaxed">
                 {t.bookmarksEmptyDesc}
               </p>
             </div>
@@ -72,7 +72,7 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
                   {bm.text}
                 </p>
 
-                <div className="flex items-center justify-between text-[11px] text-[#a0909c] pt-2 border-t border-[#3d2b38]/70">
+                <div className="flex items-center justify-between text-[11px] text-[#c4b5c0] pt-2 border-t border-[#3d2b38]/70">
                   <div className="flex items-center gap-2">
                     <span className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
@@ -91,13 +91,13 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
                         e.stopPropagation();
                         onDeleteBookmark(bm.id);
                       }}
-                      className="p-1 rounded-lg text-[#a0909c] hover:text-red-400 hover:bg-red-950/40 transition-colors"
+                      className="tap-target w-9 h-9 rounded-lg text-[#c4b5c0] hover:text-red-400 hover:bg-red-950/40 transition-colors"
                       title={t.deleteBookmark}
                       aria-label={t.deleteBookmark}
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
-                    <span className="p-1 text-[#ff85a2] opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="p-1 text-[#ff85a2]">
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>

@@ -107,7 +107,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
             {/* Quick Language Toggle */}
             <button
               onClick={() => onLanguageChange(language === 'en' ? 'my' : 'en')}
-              className="p-2 sm:px-2.5 sm:py-1 rounded-xl bg-[#2e222c] border border-[#3d2b38] hover:border-[#ff85a2]/50 text-xs font-bold text-white flex items-center gap-1.5 transition-colors"
+              className="tap-target p-2.5 sm:px-3 sm:py-1 rounded-xl bg-[#2e222c] border border-[#3d2b38] hover:border-[#ff85a2]/50 text-xs font-bold text-white flex items-center gap-1.5 transition-colors"
               title={t.switchLanguage}
             >
               <Globe className="w-3.5 h-3.5 text-[#ff85a2]" />
@@ -117,7 +117,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
             {/* Settings Icon placed in the header as required */}
             <button
               onClick={onOpenSettings}
-              className="p-2 rounded-2xl text-[#a0909c] hover:text-white bg-[#2e222c] border border-[#3d2b38] hover:border-[#ff85a2]/50 transition-colors"
+              className="tap-target p-2.5 rounded-2xl text-[#c4b5c0] hover:text-white bg-[#2e222c] border border-[#3d2b38] hover:border-[#ff85a2]/50 transition-colors"
               title={t.settings}
               aria-label={t.settings}
             >
@@ -165,11 +165,11 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
                 <span className="text-base font-bold text-white">
                   {name || t.yourName}
                 </span>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#ff85a2]/15 text-[#ff85a2] border border-[#ff85a2]/30">
+                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#ff85a2]/15 text-[#ff85a2] border border-[#ff85a2]/30">
                   {t.berryUser}
                 </span>
               </div>
-              <p className="text-xs text-[#a0909c] max-w-xs">
+              <p className="text-xs text-[#c4b5c0] max-w-xs">
                 {t.profileSubtitle}
               </p>
               <button
@@ -209,7 +209,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
                 <span>{t.aboutYou}</span>
               </label>
             </div>
-            <p className="text-[11px] text-[#a0909c]">
+            <p className="text-[11px] text-[#c4b5c0]">
               {language === 'my'
                 ? 'AI အဖော်များ သင့်စိတ်ကြိုက်၊ ဝါသနာနှင့် စကားပြောပုံစံကို သဘာဝကျကျ သိရှိနိုင်ရန် အောက်တွင် ရေးသားပါ-'
                 : 'Write a short description about yourself (passions, hobbies, lifestyle) so characters naturally understand and talk to you.'}
@@ -247,7 +247,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
                   className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-2xl border text-xs font-bold transition-colors ${
                     gender === opt.value
                       ? 'bg-[#ff85a2]/20 border-[#ff85a2]/60 text-[#ff85a2]'
-                      : 'bg-[#2e222c] border-[#3d2b38] text-[#a0909c] hover:border-[#ff85a2]/50'
+                      : 'bg-[#2e222c] border-[#3d2b38] text-[#c4b5c0] hover:border-[#ff85a2]/50'
                   }`}
                 >
                   <opt.icon className="w-4 h-4" />
@@ -284,7 +284,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
             <div className="text-xl font-black text-white">
               {characters.length}
             </div>
-            <div className="text-[10px] font-bold text-[#a0909c] uppercase tracking-wider">
+            <div className="text-[11px] font-bold text-[#c4b5c0] uppercase tracking-wider">
               {t.totalCompanions}
             </div>
           </div>
@@ -293,7 +293,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
             <div className="text-xl font-black text-[#ff85a2]">
               {totalMessages}
             </div>
-            <div className="text-[10px] font-bold text-[#a0909c] uppercase tracking-wider">
+            <div className="text-[11px] font-bold text-[#c4b5c0] uppercase tracking-wider">
               {t.totalMessages}
             </div>
           </div>
@@ -302,7 +302,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
             <div className="text-xl font-black text-amber-400">
               {totalBookmarks}
             </div>
-            <div className="text-[10px] font-bold text-[#a0909c] uppercase tracking-wider">
+            <div className="text-[11px] font-bold text-[#c4b5c0] uppercase tracking-wider">
               {t.savedBookmarks}
             </div>
           </div>
@@ -319,7 +319,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
                 <HeartHandshake className="w-4 h-4 text-[#ff85a2]" />
                 <span>{language === 'my' ? 'Berrychat ကို ထောက်ပံ့လှူဒါန်းရန်' : 'Support & Donate (KBZPay)'}</span>
               </h2>
-              <p className="text-xs text-[#a0909c]">
+              <p className="text-xs text-[#c4b5c0]">
                 {language === 'my'
                   ? 'အက်ပ်ကို အခမဲ့ ဆက်လက်အသုံးပြုနိုင်ရန် KBZPay ဖြင့် ထောက်ပံ့လှူဒါန်းနိုင်ပါသည်။'
                   : 'Support Berrychat development and keep it 100% free via KBZPay QR.'}
@@ -343,7 +343,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
               <Sliders className="w-4 h-4 text-[#ff85a2]" />
               <span>{t.settingsAndBackups}</span>
             </h2>
-            <p className="text-xs text-[#a0909c]">
+            <p className="text-xs text-[#c4b5c0]">
               {language === 'my'
                 ? 'AI မော်ဒယ်ရွေးချယ်ခြင်း၊ Gemini API သော့များ စစ်ဆေးခြင်း၊ နှင့် ဒေတာအရန်သိမ်းခြင်းများ'
                 : 'Select AI models, configure API keys, and backup/restore conversations.'}

@@ -272,7 +272,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#a0909c] hover:text-white hover:bg-[#3d2b38] transition-colors"
+            className="tap-target p-2.5 rounded-full text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38] transition-colors"
             aria-label={t.close}
           >
             <X className="w-5 h-5" />
@@ -296,7 +296,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 className={`py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
                   currentLang === 'en'
                     ? 'bg-[#ff85a2]/20 border-[#ff85a2] text-white shadow-sm'
-                    : 'bg-[#1a1218] border-[#3d2b38] text-[#a0909c] hover:text-white'
+                    : 'bg-[#1a1218] border-[#3d2b38] text-[#c4b5c0] hover:text-white'
                 }`}
               >
                 <span>{language === 'my' ? 'မြန်မာ' : 'English'}</span>
@@ -308,7 +308,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 className={`py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
                   currentLang === 'my'
                     ? 'bg-[#ff85a2]/20 border-[#ff85a2] text-white shadow-sm'
-                    : 'bg-[#1a1218] border-[#3d2b38] text-[#a0909c] hover:text-white'
+                    : 'bg-[#1a1218] border-[#3d2b38] text-[#c4b5c0] hover:text-white'
                 }`}
               >
                 <span>မြန်မာစာ (Myanmar)</span>
@@ -324,7 +324,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 <Cpu className="w-4 h-4 text-[#ff85a2]" />
                 <span>{t.aiModelSelection}</span>
               </label>
-              <p className="text-[11px] text-[#a0909c] mt-0.5">{t.aiModelSubtitle}</p>
+              <p className="text-xs text-[#c4b5c0] mt-0.5">{t.aiModelSubtitle}</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-56 overflow-y-auto pr-1">
@@ -348,12 +348,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                           <Check className="w-2.5 h-2.5 stroke-[3]" />
                         </span>
                       ) : (
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#2e222c] text-[#a0909c]">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#2e222c] text-[#c4b5c0]">
                           {m.tag}
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] text-[#a0909c] line-clamp-2 leading-relaxed">
+                    <p className="text-[11px] text-[#c4b5c0] line-clamp-2 leading-relaxed">
                       {m.description[currentLang] || m.description.en}
                     </p>
                   </button>
@@ -373,7 +373,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 type="button"
                 onClick={handleTestKeys}
                 disabled={isTestingKeys}
-                className="px-3 py-1 rounded-xl bg-[#1a1218] hover:bg-[#3d2b38] border border-[#3d2b38] text-xs font-bold text-[#ff85a2] flex items-center gap-1 transition-colors disabled:opacity-50"
+                className="tap-target px-3 py-2 rounded-xl bg-[#1a1218] hover:bg-[#3d2b38] border border-[#3d2b38] text-xs font-bold text-[#ff85a2] flex items-center gap-1 transition-colors disabled:opacity-50"
               >
                 {isTestingKeys ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -412,7 +412,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       key={k}
                       className="flex items-center justify-between text-xs px-2.5 py-1 rounded-lg bg-[#1a1218]"
                     >
-                      <span className="font-mono text-[#a0909c] truncate max-w-[180px]">
+                      <span className="font-mono text-[#c4b5c0] truncate max-w-[180px]">
                         {k.slice(0, 10)}...{k.slice(-4)}
                       </span>
                       <span
@@ -466,7 +466,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               />
               <button
                 type="submit"
-                className="px-3 py-1.5 rounded-xl bg-[#1a1218] hover:bg-[#3d2b38] border border-[#3d2b38] text-[#ff85a2] text-xs font-bold flex items-center gap-1"
+                className="tap-target px-3 py-2 rounded-xl bg-[#1a1218] hover:bg-[#3d2b38] border border-[#3d2b38] text-[#ff85a2] text-xs font-bold flex items-center gap-1"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>{t.save}</span>
@@ -483,10 +483,10 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                   <button
                     type="button"
                     onClick={() => handleRemoveGlobalMemory(idx)}
-                    className="text-[#a0909c] hover:text-red-400"
+                    className="tap-target w-8 h-8 flex items-center justify-center rounded-lg text-[#c4b5c0] hover:text-red-400 hover:bg-[#3d2b38]"
                     aria-label={t.removeMemory}
                   >
-                    <X className="w-3 h-3" />
+                    <X className="w-3.5 h-3.5" />
                   </button>
                 </span>
               ))}

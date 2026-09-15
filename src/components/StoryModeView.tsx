@@ -53,7 +53,7 @@ export const StoryModeView: React.FC<StoryModeViewProps> = ({
         <div className="flex items-center gap-2 min-w-0">
           <button
             onClick={onExitStory}
-            className="p-1.5 -ml-1 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors"
+            className="tap-target p-2 -ml-2 rounded-xl text-neutral-300 hover:text-white hover:bg-neutral-900 transition-colors"
             title={t.exitStory}
             aria-label={t.exitStory}
           >
@@ -121,7 +121,7 @@ export const StoryModeView: React.FC<StoryModeViewProps> = ({
                   >
                     {isUser ? t.you : `${storyGenreEmoji(story.genre)} ${t.gameMaster}`}
                   </span>
-                  <span className="text-[10px] text-neutral-400">{msg.time || ''}</span>
+                  <span className="text-[11px] text-neutral-300">{msg.time || ''}</span>
                 </div>
               </div>
               <p className={`whitespace-pre-wrap leading-relaxed text-sm ${isUser ? '' : 'select-text'}`}>
@@ -146,7 +146,7 @@ export const StoryModeView: React.FC<StoryModeViewProps> = ({
       <div className="px-4 pb-1.5 shrink-0 max-w-3xl w-full mx-auto">
         {story.lastActions.length > 0 && (
           <div className="flex flex-col gap-1.5">
-            <div className="flex items-center gap-1 text-[10px] text-neutral-400 px-1">
+            <div className="flex items-center gap-1 text-[11px] text-neutral-300 px-1">
               <span className="w-1 h-1 rounded-full bg-white inline-block" />
               {t.yourTurn}
             </div>
@@ -166,7 +166,7 @@ export const StoryModeView: React.FC<StoryModeViewProps> = ({
                       disabled={isLoading}
                       className="w-full text-left px-3 py-2 flex items-center gap-2.5 min-h-[40px]"
                     >
-                      <span className="inline-flex w-5 h-5 items-center justify-center rounded-full bg-white text-black text-[10px] font-bold shrink-0">
+                      <span className="inline-flex w-5 h-5 items-center justify-center rounded-full bg-white text-black text-[11px] font-bold shrink-0">
                         {i + 1}
                       </span>
                       <span className="flex-1 min-w-0 truncate text-neutral-200 text-xs leading-snug">

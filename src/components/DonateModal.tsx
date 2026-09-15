@@ -50,13 +50,13 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose, langu
                 <span>{isMy ? 'Berrychat ကို ထောက်ပံ့လှူဒါန်းရန်' : 'Donate & Support Berrychat'}</span>
                 <Sparkles className="w-3.5 h-3.5 text-[#ffb86c]" />
               </h3>
-              <p className="text-[11px] text-[#a0909c]">{isMy ? 'KBZPay QR ဖြင့် ပေးချေရန်' : 'KBZPay QR Payment'}</p>
+              <p className="text-[11px] text-[#c4b5c0]">{isMy ? 'KBZPay QR ဖြင့် ပေးချေရန်' : 'KBZPay QR Payment'}</p>
             </div>
           </div>
           <button
             id="btn-close-donate-modal"
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#a0909c] hover:text-white hover:bg-[#3d2b38] transition-colors"
+            className="p-1.5 rounded-full text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38] transition-colors"
             aria-label={isMy ? 'ပိတ်မည်' : 'Close'}
           >
             <X className="w-5 h-5" />
@@ -141,7 +141,7 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose, langu
 
           {/* Thank You Footer */}
           <div className="text-center px-4 mt-1">
-            <p className="text-[11px] text-[#a0909c] leading-relaxed">
+            <p className="text-[11px] text-[#c4b5c0] leading-relaxed">
               {isMy
                 ? 'သင်၏ စေတနာထောက်ပံ့မှုသည် AI ဆာဗာများနှင့် မော်ဒယ်စရိတ်များအတွက် များစွာအထောက်အကူဖြစ်စေပါသည် ❤️'
                 : 'Your kind donation directly keeps Berrychat fast, free, and constantly updated for everyone! ❤️'}

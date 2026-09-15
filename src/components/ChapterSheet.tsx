@@ -61,7 +61,7 @@ export const ChapterSheet: React.FC<ChapterSheetProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#a0909c] hover:text-white hover:bg-[#3d2b38] transition-colors"
+            className="tap-target p-2.5 rounded-full text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38] transition-colors"
             aria-label={t.close}
           >
             <X className="w-5 h-5" />
@@ -99,18 +99,18 @@ export const ChapterSheet: React.FC<ChapterSheetProps> = ({
                         {session.name}
                       </span>
                       {isActive && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#ff85a2] text-[#1a1218]">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#ff85a2] text-[#1a1218]">
                           {t.active}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-[#a0909c] truncate mt-0.5">
+                    <p className="text-xs text-[#c4b5c0] truncate mt-0.5">
                       {lastMsg}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-xs font-medium text-[#a0909c] px-2 py-1 rounded-lg bg-[#1a1218]">
+                    <span className="text-xs font-medium text-[#c4b5c0] px-2 py-1 rounded-lg bg-[#1a1218]">
                       {count} {t.msgs}
                     </span>
 
@@ -120,7 +120,7 @@ export const ChapterSheet: React.FC<ChapterSheetProps> = ({
                         e.stopPropagation();
                         setConfirmDeleteId(isConfirmingDelete ? null : session.id);
                       }}
-                      className="p-1.5 rounded-xl text-[#a0909c] hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                      className="tap-target p-2.5 rounded-xl text-[#c4b5c0] hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
                       title={t.deleteChapter}
                       aria-label={t.deleteChapter}
                     >
@@ -139,7 +139,7 @@ export const ChapterSheet: React.FC<ChapterSheetProps> = ({
                     <div className="flex items-center gap-1.5 shrink-0">
                       <button
                         onClick={(e) => handleDelete(e, session.id)}
-                        className="px-2.5 py-1 rounded-lg bg-rose-500 text-white text-[11px] font-bold hover:bg-rose-600 transition-colors"
+                        className="tap-target px-3 py-2 rounded-lg bg-rose-500 text-white text-xs font-bold hover:bg-rose-600 transition-colors"
                       >
                         {t.delete}
                       </button>
@@ -148,7 +148,7 @@ export const ChapterSheet: React.FC<ChapterSheetProps> = ({
                           e.stopPropagation();
                           setConfirmDeleteId(null);
                         }}
-                        className="px-2.5 py-1 rounded-lg bg-[#2e222c] text-[#a0909c] hover:text-white text-[11px] font-bold transition-colors"
+                        className="tap-target px-3 py-2 rounded-lg bg-[#2e222c] text-[#c4b5c0] hover:text-white text-xs font-bold transition-colors"
                       >
                         {t.cancel}
                       </button>
@@ -182,7 +182,7 @@ export const ChapterSheet: React.FC<ChapterSheetProps> = ({
               <button
                 type="button"
                 onClick={() => setIsAdding(false)}
-                className="px-3 py-2 rounded-xl bg-[#2e222c] border border-[#3d2b38] text-[#a0909c] text-xs font-semibold"
+                className="px-3 py-2 rounded-xl bg-[#2e222c] border border-[#3d2b38] text-[#c4b5c0] text-xs font-semibold"
               >
                 {t.cancel}
               </button>

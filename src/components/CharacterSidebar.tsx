@@ -51,7 +51,7 @@ export const CharacterSidebar: React.FC<CharacterSidebarProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={onOpenCreate}
-              className="p-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/50 dark:hover:bg-rose-900/50 text-rose-600 dark:text-rose-400 text-xs font-semibold flex items-center gap-1 transition-colors"
+              className="tap-target p-2.5 rounded-lg bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/50 dark:hover:bg-rose-900/50 text-rose-600 dark:text-rose-400 text-xs font-semibold flex items-center gap-1 transition-colors"
               title={t.addCharacter}
             >
               <Plus className="w-4 h-4" />
@@ -59,7 +59,7 @@ export const CharacterSidebar: React.FC<CharacterSidebarProps> = ({
             </button>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+              className="tap-target p-2.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -100,13 +100,13 @@ export const CharacterSidebar: React.FC<CharacterSidebarProps> = ({
                         {localizeCharacter(char, lang).name}
                       </h3>
                       {isActive && (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500 text-white shadow-2xs">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-rose-500 text-white shadow-2xs">
                           {t.active}
                         </span>
                       )}
                     </div>
 
-                    <div className="text-[11px] font-medium text-rose-600 dark:text-rose-400 mt-0.5 truncate">
+                    <div className="text-xs font-medium text-rose-600 dark:text-rose-400 mt-0.5 truncate">
                       {localizeCharacter(char, lang).relationship}
                     </div>
 
@@ -116,7 +116,7 @@ export const CharacterSidebar: React.FC<CharacterSidebarProps> = ({
                     {char.tags && char.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-1.5">
                         {char.tags.map((tag, idx) => (
-                          <span key={idx} className="px-2 py-0.5 rounded-lg bg-red-900/50 border border-red-500/60 text-[10px] font-bold text-red-200">{tag}</span>
+                          <span key={idx} className="px-2 py-0.5 rounded-lg bg-red-900/50 border border-red-500/60 text-[11px] font-bold text-red-200">{tag}</span>
                         ))}
                       </div>
                     )}
@@ -143,18 +143,18 @@ export const CharacterSidebar: React.FC<CharacterSidebarProps> = ({
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => onOpenEdit(char)}
-                      className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
+                      className="tap-target p-2.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
                       title={t.editCharacter}
                     >
-                      <Edit2 className="w-3.5 h-3.5" />
+                      <Edit2 className="w-4 h-4" />
                     </button>
 
                     <button
                       onClick={() => setDeletingId(char.id)}
-                      className="p-1.5 rounded-lg text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                      className="tap-target p-2.5 rounded-lg text-stone-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
                       title={t.deleteCharacter}
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>

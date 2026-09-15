@@ -147,6 +147,8 @@ export const TRANSLATIONS = {
     sendToScene: 'Send to Scene',
     bookmarkScene: 'Bookmark Scene',
     sceneVisual: 'Scene visual',
+    encounterSummaryTitle: 'Encounter Summary & Bonding',
+    meetAgainHint: 'To meet in person again, tap Meet Mode',
 
     // Story Mode View
     startStoryMode: 'Start Story Mode',
@@ -420,6 +422,8 @@ export const TRANSLATIONS = {
     sendToScene: 'ဇာတ်ကွက်သို့ ပို့ရန်',
     bookmarkScene: 'ဇာတ်ကွက် မှတ်သားရန်',
     sceneVisual: 'ဇာတ်ကွက် ပုံရိပ်',
+    encounterSummaryTitle: 'တွေ့ဆုံမှု အနှစ်ချုပ်',
+    meetAgainHint: 'နောက်တစ်ကြိမ် တွေ့ဆုံရန် Meet Mode ခလုတ်ကို နှိပ်ပါ',
 
     // Story Mode View
     startStoryMode: 'ဇာတ်လမ်းမုဒ် စတင်ရန်',

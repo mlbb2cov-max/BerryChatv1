@@ -202,7 +202,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
           <div>
             <h2 className="text-lg font-bold text-white flex items-center justify-center gap-2">
               <span>{lc.name}</span>
-              <span className="text-xs font-normal text-[#a0909c]">
+              <span className="text-xs font-normal text-[#c4b5c0]">
                 • {chapterName || (language === 'my' ? 'အခန်း ၁' : 'Chapter 1')}
               </span>
             </h2>
@@ -243,7 +243,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
             <span className="text-sm font-semibold text-white">
               {`${t.settingUpEncounter} ${lc.name}...`}
             </span>
-            <span className="text-xs text-[#a0909c]">
+            <span className="text-xs text-[#c4b5c0]">
               {t.generatingSceneDesc}
             </span>
           </div>
@@ -274,7 +274,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
                   >
                     {isUser ? t.you : lc.name}
                   </span>
-                  <span className="text-[10px] text-[#a0909c]">
+                  <span className="text-[11px] text-[#c4b5c0]">
                     {msg.time || ''}
                   </span>
                 </div>
@@ -283,10 +283,10 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => onBookmarkMessage(msg)}
-                    className={`p-1.5 rounded-lg transition-colors ${
+                    className={`tap-target p-2 rounded-lg transition-colors ${
                       bookmarked
                         ? 'text-[#ff85a2] bg-[#ff85a2]/15'
-                        : 'text-[#a0909c] hover:text-white'
+                        : 'text-[#c4b5c0] hover:text-white active:bg-[#3d2b38]'
                     }`}
                     title={bookmarked ? t.removeBookmark : t.bookmarkScene}
                     aria-label={t.bookmarkScene}
@@ -299,7 +299,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
                   </button>
                   <button
                     onClick={() => onDeleteMessage(msg.id)}
-                    className="p-1.5 rounded-lg text-[#a0909c] hover:text-red-400 transition-colors"
+                    className="tap-target p-2 rounded-lg text-[#c4b5c0] hover:text-red-400 active:bg-[#3d2b38] transition-colors"
                     title={t.delete}
                     aria-label={t.delete}
                   >
@@ -361,10 +361,10 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
               onClick={() =>
                 setInputMode(inputMode === 'action' ? 'normal' : 'action')
               }
-              className={`px-2.5 sm:px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border transition-all shrink-0 ${
+              className={`px-2.5 sm:px-3 py-1.5 min-h-[36px] rounded-full text-xs font-semibold flex items-center gap-1 border transition-all shrink-0 active:scale-95 ${
                 inputMode === 'action'
                   ? 'bg-[#ff85a2]/20 border-[#ff85a2] text-[#ff85a2]'
-                  : 'bg-[#2e222c] border-[#3d2b38] text-[#a0909c] hover:text-white'
+                  : 'bg-[#2e222c] border-[#3d2b38] text-[#c4b5c0] hover:text-white'
               }`}
             >
               <Compass className="w-3.5 h-3.5" />
@@ -375,10 +375,10 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
               onClick={() =>
                 setInputMode(inputMode === 'speech' ? 'normal' : 'speech')
               }
-              className={`px-2.5 sm:px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 border transition-all shrink-0 ${
+              className={`px-2.5 sm:px-3 py-1.5 min-h-[36px] rounded-full text-xs font-semibold flex items-center gap-1 border transition-all shrink-0 active:scale-95 ${
                 inputMode === 'speech'
                   ? 'bg-sky-500/20 border-sky-400 text-sky-400'
-                  : 'bg-[#2e222c] border-[#3d2b38] text-[#a0909c] hover:text-white'
+                  : 'bg-[#2e222c] border-[#3d2b38] text-[#c4b5c0] hover:text-white'
               }`}
             >
               <MessageCircle className="w-3.5 h-3.5" />
@@ -396,7 +396,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
               />
               <button
                 onClick={() => setSelectedImage(null)}
-                className="p-1 rounded-full text-[#a0909c] hover:text-white hover:bg-[#3d2b38]"
+                className="tap-target p-2 rounded-full text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38]"
                 aria-label={t.removeImage}
               >
                 <X className="w-4 h-4" />
@@ -416,7 +416,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-2.5 rounded-2xl bg-[#2e222c] border border-[#3d2b38] text-[#a0909c] hover:text-[#ff85a2] hover:border-[#ff85a2] transition-colors shrink-0"
+              className="p-2.5 rounded-2xl bg-[#2e222c] border border-[#3d2b38] text-[#c4b5c0] hover:text-[#ff85a2] hover:border-[#ff85a2] transition-colors shrink-0"
               title={t.attachPhoto}
               aria-label={t.attachPhoto}
             >
@@ -436,7 +436,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
                     ? t.speechPlaceholder
                     : t.normalPlaceholder
                 }
-                className="w-full px-3 sm:px-4 py-2.5 bg-transparent text-white text-sm focus:outline-none placeholder-[#a0909c]"
+                className="w-full px-3 sm:px-4 py-2.5 bg-transparent text-white text-sm focus:outline-none placeholder-[#c4b5c0]"
               />
             </div>
 

@@ -8,7 +8,7 @@
     --surface-translucent: rgba(36, 27, 34, 0.92);
     --border: #3d2b38;
     --text: #ffffff;
-    --text-secondary: #a0909c;
+    --text-secondary: #c4b5c0;
     --pink: #ff85a2;
     --pink-dark: #ff5a8a;
     --green: #8bc34a;
@@ -31,7 +31,7 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #3d2b38;
+  background: #4a3545;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -90,5 +90,13 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+  /* Minimum comfortable touch target for phones */
+  .tap-target {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 }

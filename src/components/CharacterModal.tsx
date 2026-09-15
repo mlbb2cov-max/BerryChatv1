@@ -147,7 +147,7 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#a0909c] hover:text-white hover:bg-[#3d2b38] transition-colors"
+            className="tap-target p-2.5 rounded-full text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38] transition-colors"
             aria-label={t.close}
           >
             <X className="w-5 h-5" />
@@ -166,7 +166,7 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
                   className="w-20 h-20 rounded-full object-cover ring-2 ring-[#ff85a2]"
                 />
               ) : (
-                <div className="w-20 h-20 rounded-full bg-[#1a1218] border-2 border-dashed border-[#3d2b38] ring-2 ring-[#ff85a2]/40 flex items-center justify-center text-[#a0909c]">
+                <div className="w-20 h-20 rounded-full bg-[#1a1218] border-2 border-dashed border-[#3d2b38] ring-2 ring-[#ff85a2]/40 flex items-center justify-center text-[#c4b5c0]">
                   <Camera className="w-7 h-7" />
                 </div>
               )}
@@ -195,7 +195,7 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
                 <button
                   type="button"
                   onClick={() => avatarInputRef.current?.click()}
-                  className="text-xs text-[#ff85a2] font-semibold hover:underline flex items-center gap-1"
+                  className="tap-target px-2.5 py-1.5 text-xs text-[#ff85a2] font-semibold hover:underline flex items-center gap-1"
                 >
                   <Camera className="w-3.5 h-3.5" />
                   <span>{t.uploadPhoto}</span>
@@ -204,7 +204,7 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
 
               {/* Custom Wallpaper */}
               <div className="pt-2 border-t border-[#3d2b38] flex items-center justify-between">
-                <span className="text-xs text-[#a0909c]">{t.chatBackground}</span>
+                <span className="text-xs text-[#c4b5c0]">{t.chatBackground}</span>
                 <input
                   type="file"
                   ref={wallpaperInputRef}
@@ -215,17 +215,17 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
                 <div className="flex items-center gap-2">
                   {wallpaper && (
                     <button
-                      type="button"
-                      onClick={() => setWallpaper('')}
-                      className="text-xs text-red-400 hover:underline"
-                    >
-                      {t.remove}
-                    </button>
+                                        type="button"
+                                        onClick={() => setWallpaper('')}
+                                        className="tap-target px-2.5 py-1.5 text-xs text-red-400 hover:underline"
+                                      >
+                                        {t.remove}
+                                      </button>
                   )}
                   <button
                     type="button"
                     onClick={() => wallpaperInputRef.current?.click()}
-                    className="text-xs text-[#ff85a2] font-semibold hover:underline flex items-center gap-1"
+                    className="tap-target px-2.5 py-1.5 text-xs text-[#ff85a2] font-semibold hover:underline flex items-center gap-1"
                   >
                     <ImageIcon className="w-3.5 h-3.5" />
                     <span>{wallpaper ? t.changeWallpaper : t.setWallpaper}</span>
@@ -311,7 +311,7 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
               <button
                 type="button"
                 onClick={handleAddMemory}
-                className="px-3 py-1.5 rounded-xl bg-[#2e222c] hover:bg-[#3d2b38] border border-[#3d2b38] text-[#ff85a2] text-xs font-bold flex items-center gap-1"
+                className="tap-target px-3 py-2 rounded-xl bg-[#2e222c] hover:bg-[#3d2b38] border border-[#3d2b38] text-[#ff85a2] text-xs font-bold flex items-center gap-1"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>{t.add}</span>
@@ -328,10 +328,10 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
                   <button
                     type="button"
                     onClick={() => handleRemoveMemory(idx)}
-                    className="text-[#a0909c] hover:text-red-400"
+                    className="tap-target w-8 h-8 flex items-center justify-center rounded-lg text-[#c4b5c0] hover:text-red-400 hover:bg-[#3d2b38]"
                     aria-label={t.removeMemory}
                   >
-                    <X className="w-3 h-3" />
+                    <X className="w-3.5 h-3.5" />
                   </button>
                 </span>
               ))}

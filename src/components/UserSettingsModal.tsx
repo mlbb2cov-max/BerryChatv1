@@ -39,7 +39,7 @@ export const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200"
+            className="tap-target p-2.5 rounded-lg text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 dark:hover:bg-stone-800 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -57,7 +57,7 @@ export const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
               placeholder={t.namePlaceholder}
               className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 text-stone-900 dark:text-stone-100 text-sm focus:outline-none focus:border-rose-500"
             />
-            <p className="text-[11px] text-stone-400 mt-1">
+            <p className="text-xs text-stone-400 mt-1">
               {t.displayNameHint}
             </p>
           </div>
@@ -78,13 +78,13 @@ export const UserSettingsModal: React.FC<UserSettingsModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-semibold text-stone-600 hover:text-stone-900"
+              className="tap-target px-4 py-2.5 text-xs font-semibold text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white"
             >
               {t.cancel}
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-xs transition-colors flex items-center gap-1"
+              className="tap-target px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-xs transition-colors flex items-center gap-1"
             >
               <Check className="w-3.5 h-3.5" />
               <span>{t.saveChanges}</span>

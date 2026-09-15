@@ -77,6 +77,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
   const [editingMsgId, setEditingMsgId] = useState<string | null>(null);
   const [editingText, setEditingText] = useState('');
   const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const [activeMsgActions, setActiveMsgActions] = useState<string | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -178,7 +179,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
             <h3 className="text-base font-bold text-white">
               {t.startChatWith} {lc.name}
             </h3>
-            <p className="text-xs text-[#a0909c] max-w-xs leading-relaxed">
+            <p className="text-xs text-[#c4b5c0] max-w-xs leading-relaxed">
               {t.startChatDesc}
             </p>
           </div>
@@ -214,7 +215,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                           <span className="text-xs font-bold text-white group-hover:text-[#ff85a2] transition-colors">
                             {msg.encounterTitle || t.inPersonEncounterMode}
                           </span>
-                          <p className="text-[10px] text-[#a0909c] flex items-center gap-1">
+                          <p className="text-[11px] text-[#c4b5c0] flex items-center gap-1">
                             <Clock className="w-2.5 h-2.5" />
                             <span>
                               {msg.time || ''} {msg.date ? `• ${msg.date}` : ''}
@@ -222,7 +223,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                           </p>
                         </div>
                       </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#ff85a2]/15 text-[#ff85a2] border border-[#ff85a2]/30 font-semibold flex items-center gap-1">
+                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-[#ff85a2]/15 text-[#ff85a2] border border-[#ff85a2]/30 font-semibold flex items-center gap-1">
                         <CheckCircle2 className="w-3 h-3" />
                         {t.completed}
                       </span>
@@ -246,7 +247,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                         <BookOpen className="w-3.5 h-3.5" />
                         {t.viewMeetDetails}
                       </span>
-                      <ChevronRight className="w-4 h-4 text-[#a0909c] group-hover:text-[#ff85a2] transition-colors" />
+                      <ChevronRight className="w-4 h-4 text-[#c4b5c0] group-hover:text-[#ff85a2] transition-colors" />
                     </div>
                   </div>
                 </div>
@@ -257,7 +258,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
               <React.Fragment key={msg.id || index}>
                 {showDate && msg.date && (
                   <div className="flex justify-center my-3">
-                    <span className="px-3 py-1 rounded-full bg-[#241b22]/90 border border-[#3d2b38] text-[11px] font-medium text-[#a0909c] flex items-center gap-1.5 shadow-xs">
+                    <span className="px-3 py-1 rounded-full bg-[#241b22]/90 border border-[#3d2b38] text-[11px] font-medium text-[#c4b5c0] flex items-center gap-1.5 shadow-xs">
                       <Calendar className="w-3 h-3 text-[#ff85a2]" />
                       <span>{msg.date}</span>
                     </span>
@@ -296,7 +297,10 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
 
                     {/* Bubble Content */}
                     <div
-                      className={`relative px-4 py-3 rounded-2xl shadow-sm text-sm leading-relaxed ${
+                      onClick={() =>
+                        setActiveMsgActions((prev) => (prev === msg.id ? null : msg.id))
+                      }
+                      className={`relative px-4 py-3 rounded-2xl shadow-sm text-sm leading-relaxed cursor-pointer active:scale-[0.99] transition-transform ${
                         isUser
                           ? 'bg-gradient-to-br from-[#ff85a2] to-[#ff5a8a] text-white rounded-br-xs font-normal'
                           : 'bg-[#241b22] border border-[#3d2b38] text-white rounded-bl-xs'
@@ -323,7 +327,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                             </button>
                             <button
                               onClick={() => setEditingMsgId(null)}
-                              className="px-2.5 py-1 rounded-lg bg-[#2e222c] text-[#a0909c] text-xs font-semibold"
+                              className="px-2.5 py-1 rounded-lg bg-[#2e222c] text-[#c4b5c0] text-xs font-semibold"
                             >
                               {t.cancel}
                             </button>
@@ -337,8 +341,8 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
 
                       {/* Time + Bookmark indicator */}
                       <div
-                        className={`flex items-center justify-end gap-1.5 mt-1 text-[10px] ${
-                          isUser ? 'text-rose-100' : 'text-[#a0909c]'
+                        className={`flex items-center justify-end gap-1.5 mt-1 text-[11px] ${
+                          isUser ? 'text-rose-100' : 'text-[#c4b5c0]'
                         }`}
                       >
                         {bookmarked && (
@@ -348,24 +352,27 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Hover Action Buttons */}
+                    {/* Message Action Bar (tap bubble to show; touch-friendly on mobile) */}
                     <div
-                      className={`absolute top-0 -translate-y-1/2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity bg-[#241b22] border border-[#3d2b38] p-0.5 rounded-xl shadow-lg z-10 ${
-                        isUser ? 'right-2' : 'left-2'
-                      }`}
+                      onClick={(e) => e.stopPropagation()}
+                      className={`absolute top-0 -translate-y-1/2 flex items-center gap-1 bg-[#241b22] border border-[#3d2b38] p-1 rounded-xl shadow-lg z-10 transition-opacity ${
+                        activeMsgActions === msg.id
+                          ? 'opacity-100'
+                          : 'opacity-0 pointer-events-none'
+                      } ${isUser ? 'right-2' : 'left-2'}`}
                     >
                       <button
                         onClick={() => onBookmarkMessage(msg)}
-                        className={`p-1 rounded-lg transition-colors ${
+                        className={`tap-target flex items-center justify-center rounded-lg transition-colors ${
                           bookmarked
                             ? 'text-[#ff85a2] bg-[#ff85a2]/15'
-                            : 'text-[#a0909c] hover:text-white'
+                            : 'text-[#c4b5c0] hover:text-white'
                         }`}
                         title={bookmarked ? t.removeBookmark : t.bookmark}
                         aria-label={t.bookmark}
                       >
                         <Star
-                          className={`w-3.5 h-3.5 ${
+                          className={`w-4 h-4 ${
                             bookmarked ? 'fill-[#ff85a2]' : ''
                           }`}
                         />
@@ -374,20 +381,21 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                         onClick={() => {
                           setEditingMsgId(msg.id);
                           setEditingText(msg.content);
+                          setActiveMsgActions(null);
                         }}
-                        className="p-1 rounded-lg text-[#a0909c] hover:text-white transition-colors"
+                        className="tap-target flex items-center justify-center rounded-lg text-[#c4b5c0] hover:text-white transition-colors"
                         title={t.editMessage}
                         aria-label={t.edit}
                       >
-                        <Edit3 className="w-3.5 h-3.5" />
+                        <Edit3 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onDeleteMessage(msg.id)}
-                        className="p-1 rounded-lg text-[#a0909c] hover:text-red-400 transition-colors"
+                        className="tap-target flex items-center justify-center rounded-lg text-[#c4b5c0] hover:text-red-400 transition-colors"
                         title={t.deleteMessage}
                         aria-label={t.delete}
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
@@ -422,19 +430,21 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Suggestion Chips */}
+      {/* Suggestion Chips (only on an empty chat, so they don't shove messages up) */}
+      {messages.length === 0 && (
       <div className="px-4 py-1.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar max-w-4xl w-full mx-auto shrink-0">
         {(QUICK_SUGGESTIONS[language] || QUICK_SUGGESTIONS.en).map((sug, i) => (
           <button
             key={i}
             onClick={() => onSendMessage(sug)}
             disabled={isLoading}
-            className="px-3 py-1 rounded-full bg-[#241b22]/90 border border-[#3d2b38] hover:border-[#ff85a2] text-xs text-[#a0909c] hover:text-white transition-all whitespace-nowrap shrink-0 disabled:opacity-50"
+            className="px-3 py-1 rounded-full bg-[#241b22]/90 border border-[#3d2b38] hover:border-[#ff85a2] text-xs text-[#c4b5c0] hover:text-white transition-all whitespace-nowrap shrink-0 disabled:opacity-50"
           >
             {sug}
           </button>
         ))}
       </div>
+      )}
 
       {/* Story Mode "+" Menu (start new or resume saved adventure) */}
       {showPlusMenu && (
@@ -442,7 +452,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
           <div className="relative bg-[#241b22] border border-[#3d2b38] rounded-2xl p-3.5 shadow-2xl animate-in fade-in slide-in-from-bottom-2 duration-200">
             <button
               onClick={() => setShowPlusMenu(false)}
-              className="absolute top-2.5 right-2.5 p-1 rounded-lg text-[#a0909c] hover:text-white hover:bg-[#3d2b38]"
+              className="absolute top-2.5 right-2.5 p-1 rounded-lg text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38]"
               aria-label={t.close}
             >
               <X className="w-4 h-4" />
@@ -454,7 +464,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
               </span>
               <div>
                 <h3 className="text-sm font-bold text-white">{t.startStoryMode}</h3>
-                <p className="text-[11px] text-[#a0909c]">{t.chooseGenre}</p>
+                <p className="text-[11px] text-[#c4b5c0]">{t.chooseGenre}</p>
               </div>
             </div>
 
@@ -497,7 +507,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                       <span className="text-sm">{storyGenreEmoji(s.genre)}</span>
                       <div className="min-w-0">
                         <p className="text-xs font-semibold text-white truncate">{s.title}</p>
-                        <p className="text-[10px] text-[#a0909c]">
+                        <p className="text-[11px] text-[#c4b5c0]">
                           {new Date(s.updatedAt).toLocaleDateString()} •{' '}
                           {s.messages.length >= 2
                             ? `${Math.ceil(s.messages.length / 2)} ${lang === 'my' ? 'အကြိမ်' : 'turns'}`
@@ -526,7 +536,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
               />
               <button
                 onClick={() => setSelectedImage(null)}
-                className="p-1 rounded-full text-[#a0909c] hover:text-white hover:bg-[#3d2b38]"
+                className="p-1 rounded-full text-[#c4b5c0] hover:text-white hover:bg-[#3d2b38]"
                 aria-label={t.removeImage}
               >
                 <X className="w-4 h-4" />
@@ -542,7 +552,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
               className={`p-2.5 rounded-2xl border transition-colors shrink-0 ${
                 showPlusMenu
                   ? 'bg-[#ff85a2] text-[#1a1218] border-[#ff85a2]'
-                  : 'bg-[#2e222c] border-[#3d2b38] text-[#a0909c] hover:text-[#ff85a2] hover:border-[#ff85a2]'
+                  : 'bg-[#2e222c] border-[#3d2b38] text-[#c4b5c0] hover:text-[#ff85a2] hover:border-[#ff85a2]'
               }`}
               title={t.startStoryMode}
               aria-label={t.startStoryMode}
@@ -561,7 +571,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-2.5 rounded-2xl bg-[#2e222c] border border-[#3d2b38] text-[#a0909c] hover:text-[#ff85a2] hover:border-[#ff85a2] transition-colors shrink-0"
+              className="p-2.5 rounded-2xl bg-[#2e222c] border border-[#3d2b38] text-[#c4b5c0] hover:text-[#ff85a2] hover:border-[#ff85a2] transition-colors shrink-0"
               title={t.attachPhoto}
               aria-label={t.attachPhoto}
             >
@@ -603,12 +613,12 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
       {affectionNotification && (
         <div
           key={affectionNotification.timestamp}
-          className={`absolute right-4 bottom-24 z-20 px-3.5 py-1.5 rounded-full shadow-2xl flex items-center gap-2 text-xs font-black transition-all animate-in fade-in slide-in-from-bottom-2 duration-300 pointer-events-none select-none ${
+          className={`absolute top-14 right-4 z-20 px-3.5 py-1.5 rounded-full shadow-2xl flex items-center gap-2 text-xs font-black transition-all animate-in fade-in slide-in-from-bottom-2 duration-300 pointer-events-none select-none ${
             affectionNotification.delta > 0
               ? 'bg-[#ff85a2] text-[#1a1218] shadow-[#ff85a2]/40 border border-white/40'
               : affectionNotification.delta < 0
               ? 'bg-[#3b82f6] text-white shadow-blue-500/40 border border-white/30'
-              : 'bg-[#2a1d27] text-[#a0909c] border border-[#3d2b38]'
+              : 'bg-[#2a1d27] text-[#c4b5c0] border border-[#3d2b38]'
           }`}
         >
           {affectionNotification.delta > 0 ? (

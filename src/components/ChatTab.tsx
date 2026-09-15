@@ -120,7 +120,7 @@ export const ChatTab: React.FC<ChatTabProps> = ({
             {/* Quick Language Toggle */}
             <button
               onClick={() => onLanguageChange(language === 'en' ? 'my' : 'en')}
-              className="p-2 sm:px-2.5 sm:py-1 rounded-xl bg-[#2e222c] border border-[#3d2b38] hover:border-[#ff85a2]/50 text-xs font-bold text-white flex items-center gap-1.5 transition-colors"
+              className="tap-target p-2.5 sm:px-3 sm:py-1 rounded-xl bg-[#2e222c] border border-[#3d2b38] hover:border-[#ff85a2]/50 text-xs font-bold text-white flex items-center gap-1.5 transition-colors"
               title={t.switchLanguage}
             >
               <Globe className="w-3.5 h-3.5 text-[#ff85a2]" />
@@ -130,7 +130,7 @@ export const ChatTab: React.FC<ChatTabProps> = ({
             {/* Settings */}
             <button
               onClick={onOpenSettings}
-              className="p-2 rounded-2xl text-[#a0909c] hover:text-white bg-[#2e222c] border border-[#3d2b38] hover:border-[#ff85a2]/50 transition-colors"
+              className="tap-target p-2.5 rounded-2xl text-[#c4b5c0] hover:text-white bg-[#2e222c] border border-[#3d2b38] hover:border-[#ff85a2]/50 transition-colors"
               title={t.settings}
               aria-label={t.settings}
             >
@@ -142,18 +142,18 @@ export const ChatTab: React.FC<ChatTabProps> = ({
         {/* Search */}
         <div className="max-w-4xl mx-auto mt-3">
           <div className="relative w-full">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a0909c] pointer-events-none" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#c4b5c0] pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t.searchChats}
-              className="w-full bg-[#2e222c] border border-[#3d2b38] rounded-2xl py-2 pl-10 pr-9 text-xs sm:text-sm text-white placeholder-[#a0909c] focus:outline-none focus:border-[#ff85a2] transition-colors"
+              className="w-full bg-[#2e222c] border border-[#3d2b38] rounded-2xl py-2 pl-10 pr-9 text-xs sm:text-sm text-white placeholder-[#c4b5c0] focus:outline-none focus:border-[#ff85a2] transition-colors"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full text-[#a0909c] hover:text-white"
+                className="tap-target absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full text-[#c4b5c0] hover:text-white active:bg-[#3d2b38]"
                 aria-label={t.search}
               >
                 <X className="w-3.5 h-3.5" />
@@ -166,13 +166,13 @@ export const ChatTab: React.FC<ChatTabProps> = ({
       {/* Conversation List */}
       <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2.5 max-w-4xl w-full mx-auto pb-20">
         {filtered.length === 0 ? (
-          <div className="py-16 text-center text-[#a0909c] space-y-3 px-4">
+          <div className="py-16 text-center text-[#c4b5c0] space-y-3 px-4">
             <div className="w-14 h-14 mx-auto rounded-3xl bg-[#241b22] border border-[#3d2b38] flex items-center justify-center text-[#ff85a2]">
               <MessageSquare className="w-7 h-7" />
             </div>
             <div>
               <p className="text-sm font-bold text-white">{t.noChatsTitle}</p>
-              <p className="text-xs text-[#a0909c] max-w-xs mx-auto mt-1 leading-relaxed">
+              <p className="text-xs text-[#c4b5c0] max-w-xs mx-auto mt-1 leading-relaxed">
                 {t.noChatsDesc}
               </p>
             </div>
@@ -227,23 +227,23 @@ export const ChatTab: React.FC<ChatTabProps> = ({
                         {character.name}
                       </span>
                       {character.isDefault ? (
-                        <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-[#1a1218] text-[#ff85a2] border border-[#ff85a2]/30 shrink-0">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#1a1218] text-[#ff85a2] border border-[#ff85a2]/30 shrink-0">
                           {t.official}
                         </span>
                       ) : (
-                        <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-[#2e222c] text-[#a0909c] border border-[#3d2b38] shrink-0">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#2e222c] text-[#c4b5c0] border border-[#3d2b38] shrink-0">
                           {t.custom}
                         </span>
                       )}
                     </div>
 
                     {/* Formatted Last Message Timestamp (like Telegram) */}
-                    <span className="text-[11px] font-semibold text-[#a0909c] shrink-0 ml-2">
+                    <span className="text-[11px] font-semibold text-[#c4b5c0] shrink-0 ml-2">
                       {formatChatTime(lastMsgTime)}
                     </span>
                   </div>
 
-                  <p className="text-xs text-[#a0909c] truncate font-normal leading-relaxed">
+                  <p className="text-xs text-[#c4b5c0] truncate font-normal leading-relaxed">
                     {lastMsg}
                   </p>
                 </div>
@@ -253,7 +253,7 @@ export const ChatTab: React.FC<ChatTabProps> = ({
                   {/* Chat Button */}
                   <button
                     onClick={() => onOpenConversation(character, 'chat')}
-                    className="p-2 rounded-xl bg-[#1a1218] hover:bg-[#ff85a2]/20 hover:text-[#ff85a2] border border-[#3d2b38] text-[#a0909c] transition-colors"
+                    className="tap-target w-10 h-10 rounded-xl bg-[#1a1218] hover:bg-[#ff85a2]/20 hover:text-[#ff85a2] active:bg-[#3d2b38] border border-[#3d2b38] text-[#c4b5c0] transition-colors"
                     title={`${t.talkChat} ${character.name}`}
                     aria-label={`Chat with ${character.name}`}
                   >
@@ -263,7 +263,7 @@ export const ChatTab: React.FC<ChatTabProps> = ({
                   {/* Meet Button */}
                   <button
                     onClick={() => onOpenConversation(character, 'real')}
-                    className="p-2 rounded-xl bg-[#1a1218] hover:bg-[#ff85a2] hover:text-white border border-[#3d2b38] text-[#a0909c] transition-colors"
+                    className="tap-target w-10 h-10 rounded-xl bg-[#1a1218] hover:bg-[#ff85a2] hover:text-white active:bg-[#3d2b38] border border-[#3d2b38] text-[#c4b5c0] transition-colors"
                     title={`${t.talkMeet} ${character.name}`}
                     aria-label={`Meet ${character.name}`}
                   >
@@ -274,7 +274,7 @@ export const ChatTab: React.FC<ChatTabProps> = ({
                   {!character.isDefault && (
                     <button
                       onClick={() => onOpenEditCharacter(character)}
-                      className="p-2 rounded-xl bg-[#1a1218] hover:bg-[#3d2b38] text-[#a0909c] hover:text-white border border-[#3d2b38] transition-colors"
+                      className="tap-target w-10 h-10 rounded-xl bg-[#1a1218] hover:bg-[#3d2b38] active:bg-[#3d2b38] text-[#c4b5c0] hover:text-white border border-[#3d2b38] transition-colors"
                       title={t.edit}
                       aria-label={t.edit}
                     >
@@ -285,7 +285,7 @@ export const ChatTab: React.FC<ChatTabProps> = ({
                   {/* Delete Conversation or Character */}
                   <button
                     onClick={() => setConfirmDeleteId(character.id)}
-                    className="p-2 rounded-xl bg-[#1a1218] hover:bg-rose-500/20 text-[#a0909c] hover:text-rose-400 border border-[#3d2b38] transition-colors"
+                    className="tap-target w-10 h-10 rounded-xl bg-[#1a1218] hover:bg-rose-500/20 active:bg-rose-500/10 text-[#c4b5c0] hover:text-rose-400 border border-[#3d2b38] transition-colors"
                     title={t.delete}
                     aria-label={t.deleteChatConfirmTitle}
                   >
@@ -319,7 +319,7 @@ export const ChatTab: React.FC<ChatTabProps> = ({
               <h3 className="text-base font-bold text-white">
                 {t.deleteChatConfirmTitle}
               </h3>
-              <p className="text-xs text-[#a0909c] leading-relaxed">
+              <p className="text-xs text-[#c4b5c0] leading-relaxed">
                 {t.deleteChatConfirmDesc}
               </p>
             </div>
