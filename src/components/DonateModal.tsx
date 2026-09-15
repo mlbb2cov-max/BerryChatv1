@@ -23,7 +23,7 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose, langu
 
   const handleDownload = () => {
     const a = document.createElement('a');
-    a.href = './donate_kbzpay.png';
+    a.href = './donate_kbzpay.webp';
     a.download = 'oakar_khant_kbzpay_qr.png';
     a.click();
   };
@@ -92,7 +92,7 @@ export const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose, langu
             {/* White QR Code Card with User Silhouette Center */}
             <div className="w-full aspect-square max-w-[260px] bg-white rounded-2xl p-4 shadow-xl flex items-center justify-center relative overflow-hidden">
               <img
-                src="./donate_qr_code.png"
+                src="./donate_qr_code.webp"
                 alt={isMy ? 'KBZPay QR ကုဒ်' : 'KBZPay QR Code'}
                 className="w-full h-full object-contain pointer-events-none rounded-lg"
               />

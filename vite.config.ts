@@ -16,12 +16,11 @@ export default defineConfig(() => {
           'favicon.ico',
           'apple-touch-icon.png',
           'app-icon.png',
-          'icon.svg',
           'pwa-192x192.png',
           'pwa-512x512.png',
           'pwa-maskable-512x512.png',
-          'donate_kbzpay.png',
-          'donate_qr_code.png',
+          'donate_kbzpay.webp',
+          'donate_qr_code.webp',
         ],
         manifest: {
           id: './',
@@ -56,7 +55,7 @@ export default defineConfig(() => {
           ],
         },
         workbox: {
-          globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,woff,woff2}'],
         },
         devOptions: {
           enabled: true,

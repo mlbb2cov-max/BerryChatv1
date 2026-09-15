@@ -82,6 +82,9 @@ export default function App() {
   } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [apiKeyBannerDismissed, setApiKeyBannerDismissed] = useState<boolean>(
+    () => localStorage.getItem('aip_api_key_banner_dismissed') === '1'
+  );
 
   const t = getTranslation(language);
 
@@ -1247,6 +1250,34 @@ ${lastMeet.summary ? `Summary: ${lastMeet.summary}` : ''}`;
           language={language}
           onLanguageChange={handleLanguageChange}
         />
+      )}
+
+      {/* Onboarding: prompt to add a free Gemini API key when none is stored yet */}
+      {!apiKeyBannerDismissed && getCustomApiKeys().length === 0 && (
+        <div className="bg-[#ff85a2]/15 border-b border-[#ff85a2]/40 text-white px-4 py-2.5 text-xs flex items-center justify-between gap-3 shrink-0 z-50">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="w-2 h-2 rounded-full bg-[#ff85a2] animate-pulse shrink-0" />
+            <span className="truncate">{t.apiKeyBanner}</span>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="px-2.5 py-1 rounded-md bg-[#ff85a2] text-[#1a1218] font-semibold hover:bg-[#ff9bb2] transition-colors"
+            >
+              {t.apiKeyBannerAction}
+            </button>
+            <button
+              onClick={() => {
+                localStorage.setItem('aip_api_key_banner_dismissed', '1');
+                setApiKeyBannerDismissed(true);
+              }}
+              className="p-1 rounded-md hover:bg-white/10 text-white/70"
+              aria-label={t.apiKeyBannerDismiss}
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
       )}
 
       {/* Error notification banner */}

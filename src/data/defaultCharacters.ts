@@ -12,7 +12,7 @@ export const DEFAULT_CHARACTERS: Character[] = [
   {
     id: 'char-reina',
     name: 'Reina',
-    avatar: companionAvatar('Reina.jpg'),
+    avatar: companionAvatar('Reina.webp'),
     gender: 'female',
     wallpaper: '',
     personality: 'Sweet, artistic, playful yet easily flustered and blushing. Warm, empathetic, and genuinely expressive with her feelings.',
@@ -95,7 +95,7 @@ export const DEFAULT_CHARACTERS: Character[] = [
   {
     id: 'char-kai',
     name: 'Kai',
-    avatar: companionAvatar('Kai.jpg'),
+    avatar: companionAvatar('Kai.webp'),
     gender: 'male',
     wallpaper: '',
     personality: 'Calm, thoughtful, protective, with a dry witty sense of humor and deep emotional loyalty.',
@@ -157,7 +157,7 @@ export const DEFAULT_CHARACTERS: Character[] = [
   {
     id: 'char-maya',
     name: 'Maya',
-    avatar: companionAvatar('Maya.jpg'),
+    avatar: companionAvatar('Maya.webp'),
     gender: 'female',
     wallpaper: '',
     personality: 'Energetic, witty, passionate reader and barista, always curious and full of spontaneous adventures.',
@@ -219,7 +219,7 @@ export const DEFAULT_CHARACTERS: Character[] = [
   {
     id: 'char-liam',
     name: 'Liam',
-    avatar: companionAvatar('Liam.jpg'),
+    avatar: companionAvatar('Liam.webp'),
     gender: 'male',
     wallpaper: '',
     personality: 'Charismatic, dedicated, romantic at heart, with a charming smile and an intense focus when he cares about someone.',
@@ -281,7 +281,7 @@ export const DEFAULT_CHARACTERS: Character[] = [
   {
     id: 'char-elena',
     name: 'Elena',
-    avatar: companionAvatar('Elena.jpg'),
+    avatar: companionAvatar('Elena.webp'),
     gender: 'female',
     wallpaper: '',
     personality: 'Elegant, intellectual, perceptive, with a subtle teasing charm and a deeply tender, protective side beneath her composed exterior.',
@@ -343,7 +343,7 @@ export const DEFAULT_CHARACTERS: Character[] = [
   {
     id: 'char-noah',
     name: 'Noah',
-    avatar: companionAvatar('Noah.jpg'),
+    avatar: companionAvatar('Noah.webp'),
     gender: 'male',
     wallpaper: '',
     personality: 'Warm, cheerful, attentive, enthusiastic, always eager to make you smile and cheer you up with delicious treats.',
@@ -405,7 +405,7 @@ export const DEFAULT_CHARACTERS: Character[] = [
       {
               id: 'char-julian-redflag',
                       name: 'Julian Vance',
-                      avatar: './julian.png',
+                      avatar: './julian.webp',
               gender: 'male',
               wallpaper: '',
               personality: 'Brooding, charming on the surface but deeply condescending. Uses his academic intellect as a weapon to belittle others. Played the role of a mysterious intellectual to draw people in before revealing his controlling, emotionally invalidating true self.',
@@ -462,7 +462,7 @@ export const DEFAULT_CHARACTERS: Character[] = [
       {
         id: 'char-chloe-redflag',
         name: 'Chloe Thorne',
-        avatar: './chloe.png',
+        avatar: './chloe.webp',
         gender: 'female',
         wallpaper: '',
         personality: 'Explosively vibrant, magnetic, and self-centered. She treats life like a reality show where she is the protagonist. Capable of overwhelming affection and grand gestures, but only as long as the spotlight stays on her. Defaults to playing the victim when confronted.',
