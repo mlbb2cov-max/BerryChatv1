@@ -20,6 +20,7 @@ import {
   Info,
   HeartHandshake,
   QrCode,
+  Palette,
 } from 'lucide-react';
 import {
   exportBackupData,
@@ -48,6 +49,8 @@ interface SettingsModalProps {
   onSelectModel: (model: string) => void;
   language: AppLanguage;
   onLanguageChange: (lang: AppLanguage) => void;
+  theme: string;
+  onThemeChange: (theme: string) => void;
   onOpenDonate?: () => void;
 }
 
@@ -61,6 +64,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onSelectModel,
   language,
   onLanguageChange,
+  theme,
+  onThemeChange,
   onOpenDonate,
 }) => {
   const [userName, setUserName] = useState('');
@@ -281,6 +286,47 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-5 space-y-6">
+          {/* Theme Selection Section */}
+          <div className="p-4 rounded-2xl bg-[#2e222c] border border-[#3d2b38] space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-xs font-bold text-white flex items-center gap-1.5">
+                <Palette className="w-4 h-4 text-[#ff85a2]" />
+                <span>{currentLang === 'my' ? 'အပြင်အဆင် (Theme)' : 'Appearance (Theme)'}</span>
+              </label>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => onThemeChange('dark')}
+                className={`py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
+                  theme === 'dark'
+                    ? 'bg-[#ff85a2]/20 border-[#ff85a2] text-white shadow-sm'
+                    : 'bg-[#1a1218] border-[#3d2b38] text-[#c4b5c0] hover:text-white'
+                }`}
+              >
+                <span>{currentLang === 'my' ? 'အမှောင်' : 'Dark'}</span>
+                {theme === 'dark' && <Check className="w-3.5 h-3.5 text-[#ff85a2]" />}
+              </button>
+              <button
+                type="button"
+                onClick={() => onThemeChange('light')}
+                className={`py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-2 transition-all ${
+                  theme === 'light'
+                    ? 'bg-[#ff85a2]/20 border-[#ff85a2] text-white shadow-sm'
+                    : 'bg-[#1a1218] border-[#3d2b38] text-[#c4b5c0] hover:text-white'
+                }`}
+              >
+                <span>{currentLang === 'my' ? 'အလင်း' : 'Light'}</span>
+                {theme === 'light' && <Check className="w-3.5 h-3.5 text-[#ff85a2]" />}
+              </button>
+            </div>
+            <p className="text-[11px] text-[#c4b5c0] leading-relaxed">
+              {currentLang === 'my'
+                ? 'အမှောင် သို့မဟုတ် အလင်း အပြင်အဆင်ကို ရွေးချယ်နိုင်ပါသည်။ (Dark သည် ပုံမှန်ဖြစ်သည်။)'
+                : 'Choose between Light and Dark appearance. Dark is the default.'}
+            </p>
+          </div>
+
           {/* Language Selection Section */}
           <div className="p-4 rounded-2xl bg-[#2e222c] border border-[#3d2b38] space-y-3">
             <div className="flex items-center justify-between">

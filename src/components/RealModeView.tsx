@@ -353,7 +353,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
       </div>
 
       {/* Real Mode Input Area */}
-      <div className="p-2.5 sm:p-4 pb-safe bg-[#241b22]/95 backdrop-blur-md border-t border-[#3d2b38] shrink-0">
+      <div className="p-2.5 sm:p-4 pb-safe bg-(--surface)/95 backdrop-blur-md border-t border-(--border) shrink-0">
         <div className="max-w-3xl mx-auto flex flex-col gap-2">
           {/* Action vs Speech Mode Selectors */}
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar">
@@ -364,7 +364,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
               className={`px-2.5 sm:px-3 py-1.5 min-h-[36px] rounded-full text-xs font-semibold flex items-center gap-1 border transition-all shrink-0 active:scale-95 ${
                 inputMode === 'action'
                   ? 'bg-[#ff85a2]/20 border-[#ff85a2] text-[#ff85a2]'
-                  : 'bg-[#2e222c] border-[#3d2b38] text-[#c4b5c0] hover:text-white'
+                  : 'bg-(--surface2) border-(--border) text-(--text-secondary) hover:text-white'
               }`}
             >
               <Compass className="w-3.5 h-3.5" />
@@ -378,7 +378,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
               className={`px-2.5 sm:px-3 py-1.5 min-h-[36px] rounded-full text-xs font-semibold flex items-center gap-1 border transition-all shrink-0 active:scale-95 ${
                 inputMode === 'speech'
                   ? 'bg-sky-500/20 border-sky-400 text-sky-400'
-                  : 'bg-[#2e222c] border-[#3d2b38] text-[#c4b5c0] hover:text-white'
+                  : 'bg-(--surface2) border-(--border) text-(--text-secondary) hover:text-white'
               }`}
             >
               <MessageCircle className="w-3.5 h-3.5" />
@@ -388,7 +388,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
 
           {/* Image preview */}
           {selectedImage && (
-            <div className="relative inline-flex items-center gap-2 p-1.5 rounded-xl bg-[#2e222c] border border-[#3d2b38] self-start">
+            <div className="relative inline-flex items-center gap-2 p-1.5 rounded-xl bg-(--surface2) border border-(--border) self-start">
               <img
                 src={selectedImage.previewUrl}
                 alt={t.preview}
@@ -416,14 +416,14 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-2.5 rounded-2xl bg-[#2e222c] border border-[#3d2b38] text-[#c4b5c0] hover:text-[#ff85a2] hover:border-[#ff85a2] transition-colors shrink-0"
+              className="p-2.5 rounded-2xl bg-(--surface2) border border-(--border) text-(--text-secondary) hover:text-[#ff85a2] hover:border-[#ff85a2] transition-colors shrink-0"
               title={t.attachPhoto}
               aria-label={t.attachPhoto}
             >
               <Paperclip className="w-5 h-5" />
             </button>
 
-            <div className="flex-1 relative rounded-2xl bg-[#2e222c] border border-[#3d2b38] focus-within:border-[#ff85a2] transition-colors">
+            <div className="flex-1 relative rounded-2xl bg-(--surface2) border border-(--border) focus-within:border-[#ff85a2] transition-colors">
               <input
                 type="text"
                 value={inputText}
@@ -436,7 +436,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
                     ? t.speechPlaceholder
                     : t.normalPlaceholder
                 }
-                className="w-full px-3 sm:px-4 py-2.5 bg-transparent text-white text-sm focus:outline-none placeholder-[#c4b5c0]"
+                className="w-full px-3 sm:px-4 py-2.5 bg-transparent text-(--text) text-sm focus:outline-none placeholder-(--placeholder)"
               />
             </div>
 

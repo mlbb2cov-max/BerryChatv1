@@ -5,6 +5,7 @@
     --bg: #1a1218;
     --surface: #241b22;
     --surface-light: #2e222c;
+    --surface2: #2e222c;
     --surface-translucent: rgba(36, 27, 34, 0.92);
     --border: #3d2b38;
     --text: #ffffff;
@@ -12,6 +13,7 @@
     --pink: #ff85a2;
     --pink-dark: #ff5a8a;
     --green: #8bc34a;
+    --accent: #ff85a2;
   }
 
   body {
@@ -100,3 +102,98 @@
     justify-content: center;
   }
 }
+
+/* ============================================================
+   LIGHT THEME
+   Default remains DARK (values in @layer base :root above).
+   Toggling data-theme="light" on the app root swaps the palette.
+   ============================================================ */
+[data-theme='light'] {
+  --bg: #f4f2f6;
+  --surface: #ffffff;
+  --surface-light: #eceaef;
+  --surface2: #eceaef;
+  --surface-translucent: rgba(255, 255, 255, 0.92);
+  --border: #d9d6df;
+  --text: #19161f;
+  --text-secondary: #6c6775;
+  --placeholder: #9a96a1;
+  --pink: #ff85a2;
+  --pink-dark: #ff5a8a;
+  --green: #8bc34a;
+  --accent: #e55377;
+}
+
+/* Remap the app's hardcoded dark hex utilities to light equivalents.
+   Scoped by the [data-theme="light"] attribute so DARK stays untouched. */
+[data-theme='light'] .bg-\[\#1a1218\] { background-color: var(--bg); }
+[data-theme='light'] .bg-\[\#1a1218\]\/80 { background-color: var(--bg); }
+[data-theme='light'] .bg-\[\#241b22\] { background-color: var(--surface); }
+[data-theme='light'] .bg-\[\#241b22\]\/95 { background-color: var(--surface); }
+[data-theme='light'] .bg-\[\#2e222c\] { background-color: var(--surface-light); }
+[data-theme='light'] .bg-\[\#3d2b38\] { background-color: var(--surface-light); }
+[data-theme='light'] .hover\:bg-\[\#2e222c\]:hover { background-color: var(--surface-light); }
+[data-theme='light'] .hover\:bg-\[\#3d2b38\]:hover { background-color: var(--surface-light); }
+[data-theme='light'] .active\:bg-\[\#3d2b38\]:active { background-color: var(--surface-light); }
+
+[data-theme='light'] .border-\[\#3d2b38\] { border-color: var(--border); }
+[data-theme='light'] .border-\[\#3d2b38\]\/70 { border-color: var(--border); }
+[data-theme='light'] .border-\[\#3d2b38\]\/60 { border-color: var(--border); }
+[data-theme='light'] .hover\:border-\[\#a0909c\]:hover { border-color: var(--border); }
+
+[data-theme='light'] .text-white { color: var(--text); }
+[data-theme='light'] .text-\[\#c4b5c0\] { color: var(--text-secondary); }
+[data-theme='light'] .text-\[\#c4b5c0\]\/60 { color: var(--text-secondary); }
+[data-theme='light'] .text-\[\#a0909c\] { color: var(--text-secondary); }
+[data-theme='light'] .text-\[\#c0b0bc\] { color: var(--text-secondary); }
+
+[data-theme='light'] .placeholder-\[\#a0909c\] { color: var(--placeholder); }
+[data-theme='light'] .placeholder-\[\#c4b5c0\] { color: var(--placeholder); }
+
+[data-theme='light'] .ring-\[\#241b22\] { --tw-ring-color: var(--surface); }
+[data-theme='light'] .ring-\[\#3d2b38\] { --tw-ring-color: var(--border); }
+
+/* Neutral gradient tokens -> light surfaces */
+[data-theme='light'] .from-\[\#1a2226\] { --tw-gradient-from: var(--surface-light); }
+[data-theme='light'] .to-\[\#241b22\] { --tw-gradient-to: var(--surface); }
+[data-theme='light'] .via-\[\#241b22\] { --tw-gradient-via: var(--surface); }
+[data-theme='light'] .via-\[\#2e222c\] { --tw-gradient-via: var(--surface-light); }
+[data-theme='light'] .to-\[\#2e222c\] { --tw-gradient-to: var(--surface-light); }
+
+/* ------------------------------------------------------------
+   GAME MODE (Story) & MEET MODE (Real) — monochrome palettes.
+   These views use their own neutral/black/stone utility classes
+   instead of the pink-dark hex tokens, so they need dedicated
+   light-theme remaps to avoid staying permanently dark.
+   ------------------------------------------------------------ */
+[data-theme='light'] .bg-black { background-color: var(--bg); }
+[data-theme='light'] .bg-\[\#000000\] { background-color: var(--bg); }
+[data-theme='light'] .bg-\[\#160e15\] { background-color: var(--bg); }
+[data-theme='light'] .bg-\[\#2c1f2a\]\/90 { background-color: var(--surface); }
+[data-theme='light'] .bg-neutral-900 { background-color: var(--surface); }
+[data-theme='light'] .bg-neutral-800 { background-color: var(--surface); }
+[data-theme='light'] .bg-neutral-700 { background-color: var(--surface-light); }
+[data-theme='light'] .hover\:bg-neutral-900:hover { background-color: var(--surface-light); }
+[data-theme='light'] .hover\:bg-neutral-800:hover { background-color: var(--surface-light); }
+
+[data-theme='light'] .border-neutral-800 { border-color: var(--border); }
+[data-theme='light'] .border-neutral-700 { border-color: var(--border); }
+[data-theme='light'] .border-neutral-600 { border-color: var(--border); }
+[data-theme='light'] .border-neutral-700\/60 { border-color: var(--border); }
+[data-theme='light'] .border-b-neutral-700\/40 { border-color: var(--border); }
+
+[data-theme='light'] .text-neutral-100 { color: var(--text); }
+[data-theme='light'] .text-neutral-200 { color: var(--text); }
+[data-theme='light'] .text-neutral-300 { color: var(--text-secondary); }
+[data-theme='light'] .text-neutral-400 { color: var(--text-secondary); }
+[data-theme='light'] .text-neutral-500 { color: var(--placeholder); }
+[data-theme='light'] .text-neutral-600 { color: var(--placeholder); }
+[data-theme='light'] .text-white\/70 { color: var(--text-secondary); }
+[data-theme='light'] .text-stone-200 { color: var(--text); }
+[data-theme='light'] .text-stone-300 { color: var(--text-secondary); }
+[data-theme='light'] .placeholder-neutral-500 { color: var(--placeholder); }
+
+/* Strong coloured fills must keep WHITE text even in light mode */
+[data-theme='light'] .bg-rose-500.text-white { color: #ffffff; }
+[data-theme='light'] .bg-rose-600.text-white { color: #ffffff; }
+[data-theme='light'] .bg-\[\#005baa\].text-white { color: #ffffff; }

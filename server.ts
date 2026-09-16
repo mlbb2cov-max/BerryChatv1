@@ -329,10 +329,10 @@ async function startServer() {
       // Enforce 100% free Gemini API models
       const ALLOWED_FREE_MODELS = [
         "gemini-3.8-flash",
+        "gemini-3.7-flash",
+        "gemini-3.6-flash",
+        "gemini-3.5-flash-lite",
         "gemini-3.1-flash-lite",
-        "gemini-flash-latest",
-        "gemini-2.5-flash",
-        "gemini-2.5-flash-lite",
       ];
       let modelToUse = payload.model || "gemini-3.8-flash";
       if (!ALLOWED_FREE_MODELS.includes(modelToUse)) {
@@ -344,7 +344,6 @@ async function startServer() {
         role: "user" | "model";
         parts: Array<{ text?: string; inlineData?: { mimeType: string; data: string } }>;
       }> = [];
-
       if (payload.messages && payload.messages.length > 0) {
         for (const msg of payload.messages) {
           const parts: Array<{ text?: string; inlineData?: { mimeType: string; data: string } }> = [];
@@ -406,20 +405,44 @@ async function startServer() {
               });
             }
 
-      const response = await ai.models.generateContent({
-        model: modelToUse,
-        contents,
-        config: {
-                  systemInstruction,
-                  temperature: 0.9,
-                  maxOutputTokens: 2048,
-                  topP: 0.95,
-                  topK: 40,
-                  safetySettings: SAFETY_SETTINGS_BLOCK_NONE,
-                },
-      });
+      // Generate with model failover: on 503/404, silently switch to the next
+            // model and retry, then surface the error only after a full cycle.
+            let response: { text?: string } | undefined;
+            let lastModelError: any = null;
+            for (let attempt = 0; attempt < ALLOWED_FREE_MODELS.length; attempt++) {
+              const candidate = ALLOWED_FREE_MODELS[(ALLOWED_FREE_MODELS.indexOf(modelToUse) + attempt) % ALLOWED_FREE_MODELS.length];
+              try {
+                response = await ai.models.generateContent({
+                  model: candidate,
+                  contents,
+                  config: {
+                    systemInstruction,
+                    temperature: 0.9,
+                    maxOutputTokens: 2048,
+                    topP: 0.95,
+                    topK: 40,
+                    safetySettings: SAFETY_SETTINGS_BLOCK_NONE,
+                  },
+                });
+                break;
+              } catch (err: any) {
+                lastModelError = err;
+                const s = Number(err?.status ?? err?.code ?? 0);
+                // Location / region unavailability must surface to the user immediately.
+                const lower = String(err?.message || "").toLowerCase();
+                const regionHint = /(location|region|geographic|\bgeo\b)/.test(lower);
+                const availHint = /(not available|unsupported|restrict|support|unavailable|privacy|data residency)/.test(lower);
+                if (s === 451 || (regionHint && availHint)) throw err;
+                // 503 / 404: retry another model. Other statuses keep looping too for
+                // resilience, and surface only if the entire cycle fails.
+                void s;
+              }
+            }
+            if (!response) {
+              throw lastModelError || new Error("All available models failed to respond.");
+            }
 
-      const rawText = response.text || "";
+            const rawText = response.text || "";
       let affectionDelta = 0;
       const affMatch = rawText.match(/\[AFFECTION:\s*([+-]?\d+)\]/i) ||
                        rawText.match(/<!--\s*affection:\s*([+-]?\d+)\s*-->/i);

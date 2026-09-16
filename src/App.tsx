@@ -61,6 +61,9 @@ export default function App() {
   const [selectedModel, setSelectedModel] = useState<string>(() => getSelectedModel());
   const [language, setLanguage] = useState<AppLanguage>(() => getStoredLanguage());
 
+  // Theme ('dark' default; 'light' opt-in) persisted between sessions
+  const [theme, setTheme] = useState<string>(() => localStorage.getItem('berrychat_theme') || 'dark');
+
   // Story Mode (interactive choose-your-own-adventure, separate from character chats)
   const [stories, setStories] = useState<StorySession[]>(() => getStoredStories());
   const [activeStoryId, setActiveStoryId] = useState<string | null>(null);
@@ -125,6 +128,11 @@ export default function App() {
   const handleLanguageChange = (newLang: AppLanguage) => {
     setLanguage(newLang);
     saveStoredLanguage(newLang);
+  };
+
+  const handleThemeChange = (nextTheme: string) => {
+    setTheme(nextTheme);
+    localStorage.setItem('berrychat_theme', nextTheme);
   };
 
   const handleModelChange = (modelId: string) => {
@@ -1232,7 +1240,7 @@ ${lastMeet.summary ? `Summary: ${lastMeet.summary}` : ''}`;
 
   return (
     <React.Suspense fallback={<FullScreenLoader />}>
-    <div className="h-full w-full flex flex-col bg-[#1a1218] text-white font-sans overflow-hidden">
+    <div className="h-full w-full flex flex-col bg-[#1a1218] text-white font-sans overflow-hidden" data-theme={theme}>
       {/* Top Header when inside an active conversation (Chat or Meet Mode) */}
       {isConversationOpen && activeMode !== 'story' && (
         <Header
@@ -1498,6 +1506,8 @@ ${lastMeet.summary ? `Summary: ${lastMeet.summary}` : ''}`;
         onSelectModel={handleModelChange}
         language={language}
         onLanguageChange={handleLanguageChange}
+        theme={theme}
+        onThemeChange={handleThemeChange}
         onOpenDonate={() => setIsDonateModalOpen(true)}
       />
 

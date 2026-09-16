@@ -524,11 +524,11 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
       )}
 
       {/* Input Bar */}
-      <div className="p-2.5 sm:p-4 pb-safe bg-[#241b22]/95 backdrop-blur-md border-t border-[#3d2b38] shrink-0">
+      <div className="p-2.5 sm:p-4 pb-safe bg-(--surface)/95 backdrop-blur-md border-t border-(--border) shrink-0">
         <div className="max-w-4xl mx-auto flex flex-col gap-2">
           {/* Selected Image Preview */}
           {selectedImage && (
-            <div className="relative inline-flex items-center gap-2 p-1.5 rounded-xl bg-[#2e222c] border border-[#3d2b38] self-start">
+            <div className="relative inline-flex items-center gap-2 p-1.5 rounded-xl bg-(--surface2) border border-(--border) self-start">
               <img
                 src={selectedImage.previewUrl}
                 alt={t.uploadPreview}
@@ -552,7 +552,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
               className={`p-2.5 rounded-2xl border transition-colors shrink-0 ${
                 showPlusMenu
                   ? 'bg-[#ff85a2] text-[#1a1218] border-[#ff85a2]'
-                  : 'bg-[#2e222c] border-[#3d2b38] text-[#c4b5c0] hover:text-[#ff85a2] hover:border-[#ff85a2]'
+                  : 'bg-(--surface2) border-(--border) text-(--text-secondary) hover:text-[#ff85a2] hover:border-[#ff85a2]'
               }`}
               title={t.startStoryMode}
               aria-label={t.startStoryMode}
@@ -571,7 +571,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="p-2.5 rounded-2xl bg-[#2e222c] border border-[#3d2b38] text-[#c4b5c0] hover:text-[#ff85a2] hover:border-[#ff85a2] transition-colors shrink-0"
+              className="p-2.5 rounded-2xl bg-(--surface2) border border-(--border) text-(--text-secondary) hover:text-[#ff85a2] hover:border-[#ff85a2] transition-colors shrink-0"
               title={t.attachPhoto}
               aria-label={t.attachPhoto}
             >
@@ -579,7 +579,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
             </button>
 
             {/* Textarea */}
-            <div className="flex-1 relative rounded-2xl bg-[#2e222c] border border-[#3d2b38] focus-within:border-[#ff85a2] transition-colors overflow-hidden">
+            <div className="flex-1 relative rounded-2xl bg-(--surface2) border border-(--border) focus-within:border-[#ff85a2] transition-colors overflow-hidden">
               <textarea
                 ref={textareaRef}
                 value={inputText}
@@ -587,7 +587,7 @@ export const ChatModeView: React.FC<ChatModeViewProps> = ({
                 onKeyDown={handleKeyDown}
                 placeholder={`${language === 'my' ? 'မက်ဆေ့ခ်ျ ရိုက်ထည့်ပါ' : 'Message'} ${lc.name}...`}
                 rows={1}
-                className="w-full px-3 sm:px-3.5 py-2.5 bg-transparent text-white text-sm focus:outline-none resize-none max-h-36 placeholder-[#a0909c] leading-5"
+                className="w-full px-3 sm:px-3.5 py-2.5 bg-transparent text-(--text) text-sm focus:outline-none resize-none max-h-36 placeholder-(--placeholder) leading-5"
               />
             </div>
 

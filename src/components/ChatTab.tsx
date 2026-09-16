@@ -5,9 +5,7 @@ import {
   Search,
   X,
   Trash2,
-  Edit3,
   MessageSquare,
-  Sparkles,
   Settings,
   ChevronRight,
   User,
@@ -199,99 +197,59 @@ export const ChatTab: React.FC<ChatTabProps> = ({
             return (
               <div
                 key={character.id}
-                className={`relative group p-3.5 rounded-3xl border transition-all duration-200 bg-[#241b22] hover:bg-[#2e222c] flex items-center gap-3.5 ${
-                  isSelected ? 'border-[#ff85a2]/60 shadow-sm' : 'border-[#3d2b38]'
+                onClick={() => onOpenConversation(character, 'chat')}
+                className={`flex items-center gap-3 rounded-2xl px-3 py-3 cursor-pointer transition-colors ${
+                  isSelected ? 'bg-(--surface2)' : 'hover:bg-(--surface2)'
                 }`}
               >
-                {/* Avatar with status indicator */}
-                <div
-                  onClick={() => onOpenConversation(character, 'chat')}
-                  className="relative shrink-0 cursor-pointer"
-                >
+                {/* Circular avatar with status dot */}
+                <div className="relative shrink-0">
                   <img
                     src={character.avatar}
                     alt={character.name}
-                    className="w-13 h-13 rounded-2xl object-cover border border-[#3d2b38] group-hover:border-[#ff85a2] transition-colors"
+                    className="w-13 h-13 rounded-full object-cover border border-(--border)"
                   />
-                  <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 ring-2 ring-[#241b22]" />
+                  <span className="absolute bottom-0.5 right-0.5 w-3 h-3 rounded-full bg-emerald-400 ring-2 ring-(--surface)" />
                 </div>
 
-                {/* Info & Last Message */}
-                <div
-                  onClick={() => onOpenConversation(character, 'chat')}
-                  className="flex-1 min-w-0 cursor-pointer"
-                >
-                  <div className="flex items-center justify-between gap-1 mb-1">
+                {/* Name, last message & timestamp */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-1.5 min-w-0">
-                      <span className="font-bold text-sm text-white truncate">
+                      <span className="font-semibold text-sm text-(--text) truncate">
                         {character.name}
                       </span>
                       {character.isDefault ? (
-                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#1a1218] text-[#ff85a2] border border-[#ff85a2]/30 shrink-0">
+                        <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-(--bg) text-(--accent) border border-(--accent)/30 shrink-0">
                           {t.official}
                         </span>
                       ) : (
-                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#2e222c] text-[#c4b5c0] border border-[#3d2b38] shrink-0">
+                        <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-(--surface2) text-(--text-secondary) border border-(--border) shrink-0">
                           {t.custom}
                         </span>
                       )}
                     </div>
-
-                    {/* Formatted Last Message Timestamp (like Telegram) */}
-                    <span className="text-[11px] font-semibold text-[#c4b5c0] shrink-0 ml-2">
+                    <span className="text-[11px] font-medium text-(--text-secondary) shrink-0 ml-1">
                       {formatChatTime(lastMsgTime)}
                     </span>
                   </div>
-
-                  <p className="text-xs text-[#c4b5c0] truncate font-normal leading-relaxed">
+                  <p className="text-xs text-(--text-secondary) truncate leading-relaxed mt-0.5 font-normal">
                     {lastMsg}
                   </p>
                 </div>
 
-                {/* Action Buttons (Chat, Meet, Edit, Delete) */}
-                <div className="flex items-center gap-1 shrink-0">
-                  {/* Chat Button */}
-                  <button
-                    onClick={() => onOpenConversation(character, 'chat')}
-                    className="tap-target w-10 h-10 rounded-xl bg-[#1a1218] hover:bg-[#ff85a2]/20 hover:text-[#ff85a2] active:bg-[#3d2b38] border border-[#3d2b38] text-[#c4b5c0] transition-colors"
-                    title={`${t.talkChat} ${character.name}`}
-                    aria-label={`Chat with ${character.name}`}
-                  >
-                    <MessageSquare className="w-4 h-4" />
-                  </button>
-
-                  {/* Meet Button */}
-                  <button
-                    onClick={() => onOpenConversation(character, 'real')}
-                    className="tap-target w-10 h-10 rounded-xl bg-[#1a1218] hover:bg-[#ff85a2] hover:text-white active:bg-[#3d2b38] border border-[#3d2b38] text-[#c4b5c0] transition-colors"
-                    title={`${t.talkMeet} ${character.name}`}
-                    aria-label={`Meet ${character.name}`}
-                  >
-                    <Sparkles className="w-4 h-4 text-[#ff85a2] hover:text-white" />
-                  </button>
-
-                  {/* Edit Custom Character */}
-                  {!character.isDefault && (
-                    <button
-                      onClick={() => onOpenEditCharacter(character)}
-                      className="tap-target w-10 h-10 rounded-xl bg-[#1a1218] hover:bg-[#3d2b38] active:bg-[#3d2b38] text-[#c4b5c0] hover:text-white border border-[#3d2b38] transition-colors"
-                      title={t.edit}
-                      aria-label={t.edit}
-                    >
-                      <Edit3 className="w-4 h-4" />
-                    </button>
-                  )}
-
-                  {/* Delete Conversation or Character */}
-                  <button
-                    onClick={() => setConfirmDeleteId(character.id)}
-                    className="tap-target w-10 h-10 rounded-xl bg-[#1a1218] hover:bg-rose-500/20 active:bg-rose-500/10 text-[#c4b5c0] hover:text-rose-400 border border-[#3d2b38] transition-colors"
-                    title={t.delete}
-                    aria-label={t.deleteChatConfirmTitle}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
+                {/* Delete (trash) — opens the existing delete confirmation */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setConfirmDeleteId(character.id);
+                  }}
+                  className="tap-target w-9 h-9 rounded-xl text-(--text-secondary) hover:text-rose-400 hover:bg-rose-500/10 active:bg-rose-500/15 transition-colors shrink-0"
+                  title={t.delete}
+                  aria-label={t.deleteChatConfirmTitle}
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
             );
           })
