@@ -322,8 +322,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
             <p className="text-[11px] text-[#c4b5c0] leading-relaxed">
               {currentLang === 'my'
-                ? 'အမှောင် သို့မဟုတ် အလင်း အပြင်အဆင်ကို ရွေးချယ်နိုင်ပါသည်။ (Dark သည် ပုံမှန်ဖြစ်သည်။)'
-                : 'Choose between Light and Dark appearance. Dark is the default.'}
+                ? 'အမှောင် သို့မဟုတ် အလင်း အပြင်အဆင်ကို ရွေးချယ်နိုင်ပါသည်။ (Light သည် ပုံမှန်ဖြစ်သည်။)'
+                : 'Choose between Light and Dark appearance. Light is the default.'}
             </p>
           </div>
 

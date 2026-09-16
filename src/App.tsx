@@ -62,7 +62,7 @@ export default function App() {
   const [language, setLanguage] = useState<AppLanguage>(() => getStoredLanguage());
 
   // Theme ('dark' default; 'light' opt-in) persisted between sessions
-  const [theme, setTheme] = useState<string>(() => localStorage.getItem('berrychat_theme') || 'dark');
+  const [theme, setTheme] = useState<string>(() => localStorage.getItem('berrychat_theme') || 'light');
 
   // Story Mode (interactive choose-your-own-adventure, separate from character chats)
   const [stories, setStories] = useState<StorySession[]>(() => getStoredStories());
