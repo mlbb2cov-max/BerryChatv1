@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { StorySession, AppLanguage } from '../types';
 import { getTranslation } from '../utils/i18n';
 import { storyGenreEmoji, storyGenreLabel } from '../utils/storage';
+import { TypedText } from './TypedText';
 import { ChevronLeft, ChevronDown, Dices, LogOut, Send, Loader2, Users } from 'lucide-react';
 
 interface StoryModeViewProps {
@@ -103,6 +104,7 @@ export const StoryModeView: React.FC<StoryModeViewProps> = ({
 
         {story.messages.map((msg, index) => {
           const isUser = msg.role === 'user';
+          const isLatestModel = !isUser && index === story.messages.length - 1;
           return (
             <div
               key={msg.id || index}
@@ -125,7 +127,7 @@ export const StoryModeView: React.FC<StoryModeViewProps> = ({
                 </div>
               </div>
               <p className={`whitespace-pre-wrap leading-relaxed text-sm ${isUser ? '' : 'select-text'}`}>
-                {msg.content}
+                {isLatestModel ? <TypedText text={msg.content} animate /> : msg.content}
               </p>
             </div>
           );

@@ -48,7 +48,7 @@ export function normalizeCharacter(c: any): Character {
     tags: Array.isArray(c.tags) ? c.tags : [],
     rude: !!c.rude,
     locales: c.locales && typeof c.locales === 'object' ? c.locales : undefined,
-    model: c.model || 'gemini-3.8-flash',
+    model: c.model || 'gemini-3.1-flash-lite',
     systemPrompt: c.systemPrompt || '',
     customPrompt: c.customPrompt || '',
     memories: Array.isArray(c.memories) ? c.memories : [],

@@ -287,7 +287,7 @@ async function startServer() {
     try {
       const client = new GoogleGenAI({ apiKey });
       const resp = await client.models.generateContent({
-        model: model || "gemini-3.8-flash",
+        model: model || "gemini-3.1-flash-lite",
         contents: [{ role: "user", parts: [{ text: "ping" }] }],
         config: {
           maxOutputTokens: 2,
@@ -327,17 +327,17 @@ async function startServer() {
       const systemInstruction = buildSystemInstruction(payload);
 
       // Enforce 100% free Gemini API models
-      const ALLOWED_FREE_MODELS = [
-        "gemini-3.8-flash",
-        "gemini-3.7-flash",
-        "gemini-3.6-flash",
-        "gemini-3.5-flash-lite",
-        "gemini-3.1-flash-lite",
-      ];
-      let modelToUse = payload.model || "gemini-3.8-flash";
-      if (!ALLOWED_FREE_MODELS.includes(modelToUse)) {
-        modelToUse = "gemini-3.8-flash";
-      }
+            const ALLOWED_FREE_MODELS = [
+              "gemini-3.1-flash-lite",
+              "gemini-3.5-flash-lite",
+              "gemini-3.6-flash",
+              "gemini-3.7-flash",
+              "gemini-3.8-flash",
+            ];
+            let modelToUse = payload.model || "gemini-3.1-flash-lite";
+            if (!ALLOWED_FREE_MODELS.includes(modelToUse)) {
+              modelToUse = "gemini-3.1-flash-lite";
+            }
 
       // Transform messages into Gemini format
       const contents: Array<{
@@ -405,12 +405,13 @@ async function startServer() {
               });
             }
 
-      // Generate with model failover: on 503/404, silently switch to the next
-            // model and retry, then surface the error only after a full cycle.
-            let response: { text?: string } | undefined;
-            let lastModelError: any = null;
-            for (let attempt = 0; attempt < ALLOWED_FREE_MODELS.length; attempt++) {
-              const candidate = ALLOWED_FREE_MODELS[(ALLOWED_FREE_MODELS.indexOf(modelToUse) + attempt) % ALLOWED_FREE_MODELS.length];
+      // Generate with model failover: on 503/404, silently escalate from the
+                  // LOWEST model up the ladder and retry, then surface the error only
+                  // after the full cycle (never higher→lower).
+                  let response: { text?: string } | undefined;
+                  let lastModelError: any = null;
+                  for (let attempt = 0; attempt < ALLOWED_FREE_MODELS.length; attempt++) {
+                    const candidate = ALLOWED_FREE_MODELS[attempt];
               try {
                 response = await ai.models.generateContent({
                   model: candidate,

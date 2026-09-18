@@ -17,7 +17,7 @@ export const SUPPORTED_AI_MODELS: AIModelOption[] = [
     tag: 'Free API Tier',
     freeTier: true,
     description: {
-      en: 'Recommended default. High-speed, emotionally nuanced, and 100% workable with free Gemini API quota.',
+      en: 'High-speed, emotionally nuanced, and 100% workable with free Gemini API quota.',
       my: 'အခမဲ့ API အသုံးပြုသူများအတွက် အထူးသင့်လျော်သည်။ အချိန်နှင့်တပြေးညီ မြန်ဆန်စွာ စကားပြောဆိုနိုင်သော မော်ဒယ်။',
     },
   },

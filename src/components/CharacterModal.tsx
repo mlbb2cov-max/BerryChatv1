@@ -38,7 +38,7 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
   const [backstory, setBackstory] = useState('');
   const [speakingStyle, setSpeakingStyle] = useState('');
   const [relationship, setRelationship] = useState('');
-  const [model, setModel] = useState('gemini-3.8-flash');
+  const [model, setModel] = useState('gemini-3.1-flash-lite');
   const [systemPrompt, setSystemPrompt] = useState('');
   const [memories, setMemories] = useState<string[]>([]);
   const [newMemoryInput, setNewMemoryInput] = useState('');
@@ -55,7 +55,7 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
       setBackstory(characterToEdit.backstory || '');
       setSpeakingStyle(characterToEdit.speakingStyle || '');
       setRelationship(characterToEdit.relationship || '');
-      setModel(characterToEdit.model || 'gemini-3.8-flash');
+      setModel(characterToEdit.model || 'gemini-3.1-flash-lite');
       setSystemPrompt(characterToEdit.systemPrompt || '');
       setMemories(characterToEdit.memories || []);
     } else {
@@ -66,7 +66,7 @@ export const CharacterModal: React.FC<CharacterModalProps> = ({
       setBackstory('');
       setSpeakingStyle('');
       setRelationship('');
-      setModel('gemini-3.8-flash');
+      setModel('gemini-3.1-flash-lite');
       setSystemPrompt('');
       setMemories([]);
     }

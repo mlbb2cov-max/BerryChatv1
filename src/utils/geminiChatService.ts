@@ -47,11 +47,11 @@ const SAFETY_SETTINGS_BLOCK_NONE: any = [
 ];
 
 const CLIENT_FREE_MODELS = [
-  'gemini-3.8-flash',
-  'gemini-3.7-flash',
-  'gemini-3.6-flash',
-  'gemini-3.5-flash-lite',
   'gemini-3.1-flash-lite',
+  'gemini-3.5-flash-lite',
+  'gemini-3.6-flash',
+  'gemini-3.7-flash',
+  'gemini-3.8-flash',
 ];
 
 // Categorise an AI-service error so we know whether to silently retry on
@@ -85,12 +85,12 @@ async function generateWithFailover(args: {
   /** true = long/narrative generation (returns affectionDelta); false = plain text pass-through. */
   applyAffection?: boolean;
 }): Promise<ChatServiceResponse> {
-  let idx = CLIENT_FREE_MODELS.indexOf(args.startModel);
-  if (idx === -1) idx = 0;
   let lastErr: any = null;
 
-  for (let attempt = 0; attempt < CLIENT_FREE_MODELS.length; attempt++) {
-    const model = CLIENT_FREE_MODELS[(idx + attempt) % CLIENT_FREE_MODELS.length];
+    // Always start at the LOWEST model (gemini-3.1-flash-lite) and escalate up
+    // the ladder on failure — never the reverse (no higher→lower cycling).
+    for (let attempt = 0; attempt < CLIENT_FREE_MODELS.length; attempt++) {
+      const model = CLIENT_FREE_MODELS[attempt];
     try {
       const response = await args.ai.models.generateContent({
         model,
@@ -403,9 +403,9 @@ export async function sendChatRequest(payload: ChatServiceOptions): Promise<Chat
 
     const ai = new GoogleGenAI({ apiKey: activeKey });
         const systemInstruction = buildSystemInstruction(fullPayload);
-        let modelToUse = fullPayload.model || 'gemini-3.8-flash';
+        let modelToUse = fullPayload.model || 'gemini-3.1-flash-lite';
         if (!CLIENT_FREE_MODELS.includes(modelToUse)) {
-          modelToUse = 'gemini-3.8-flash';
+          modelToUse = 'gemini-3.1-flash-lite';
         }
 
     const contents: Array<{
@@ -511,7 +511,7 @@ export async function sendChatRequest(payload: ChatServiceOptions): Promise<Chat
               payload.language === 'my'
                 ? 'You condense a chat transcript into a short, neutral 3-6 sentence Burmese (မြန်မာ) summary of the key things said, facts about the user, and any shared plans. Keep it factual, compact, and written in plain spoken Burmese.'
                 : 'You condense a chat transcript into a short, neutral 3-6 sentence English summary of the key things said, facts about the user, and any shared plans. Keep it factual and compact.';
-            const model = payload.model && CLIENT_FREE_MODELS.includes(payload.model) ? payload.model : 'gemini-3.8-flash';
+            const model = payload.model && CLIENT_FREE_MODELS.includes(payload.model) ? payload.model : 'gemini-3.1-flash-lite';
             const res = await generateWithFailover({
               ai,
               startModel: model,

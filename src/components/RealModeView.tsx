@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Character, ChatMessage, MessagePart, AppLanguage } from '../types';
 import { getTranslation, localizeCharacter } from '../utils/i18n';
+import { TypedText } from './TypedText';
 import {
   Send,
   Paperclip,
@@ -252,6 +253,7 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
         {/* Narrative Messages */}
         {messages.map((msg, index) => {
           const isUser = msg.role === 'user';
+          const isLatestModel = !isUser && index === messages.length - 1;
           const bookmarked = isBookmarked(msg.id);
           const imgPart = msg.parts?.find((p) => p.inlineData);
 
@@ -319,8 +321,14 @@ export const RealModeView: React.FC<RealModeViewProps> = ({
                 </div>
               )}
 
-              {/* Formatted Content */}
-              <div>{renderFormattedStory(msg.content)}</div>
+              {/* Formatted Content — the newest AI reply types out live */}
+              <div>
+                {isLatestModel ? (
+                  <TypedText className="whitespace-pre-wrap leading-relaxed text-sm" text={msg.content} animate />
+                ) : (
+                  renderFormattedStory(msg.content)
+                )}
+              </div>
             </div>
           );
         })}
